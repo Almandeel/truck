@@ -13,6 +13,7 @@
     <div class="card">
         <div class="card-header">
             طلب رقم {{ $order->id }}
+            <a href="{{ route('reports.order', $order->id) }}" class="btn btn-secondary btn-sm float-left">طباعة</a>
         </div>
         <div class="card-body">
             <table style="margin-bottom:3%" class="table table-bordered table-hover text-center bm-4">
