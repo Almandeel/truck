@@ -23,6 +23,7 @@ class CreateOrdersTable extends Migration
             $table->string('to')->nullable();
             $table->dateTime('accepted_at')->nullable();
             $table->dateTime('received_at')->nullable();
+            $table->dateTime('delivered_at')->nullable();
             $table->unsignedBigInteger('company_id')->nullable();
             $table->unsignedBigInteger('user_add_id')->nullable();
             $table->unsignedBigInteger('user_accepted_id')->nullable();

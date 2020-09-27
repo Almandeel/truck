@@ -25,11 +25,15 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->string('phone');
-            $table->string('code')->nullable();;
+            $table->string('code')->nullable();
             $table->string('email', 25)->nullable();
             $table->string('password', 64);
+            $table->unsignedBigInteger('company_id')->nullable();
             $table->unique(["phone"], 'username_UNIQUE');
             $table->timestamps();
+
+            $table->foreign('company_id')->references('id')->on('companies')
+            ->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

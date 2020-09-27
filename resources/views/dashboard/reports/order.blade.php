@@ -1,7 +1,7 @@
 @extends('layouts.dashboard.report')
 
 @section('title')
-    طلب رقم {{ $order->id }}
+    طلب رقم 
 @endsection
 
 @section('content')
@@ -48,7 +48,9 @@
 
 <table class="table table-bordered table-hover text-center">
     <thead>
-        <tr><th colspan="4">تفاصيل الطلب</th></tr>
+        <tr>
+            <th colspan="4">تفاصيل الطلب</th>
+        </tr>
         <tr>
             <th>#</th>
             <th>النوع</th>
@@ -56,7 +58,7 @@
             <th>الوزن</th>
         </tr>
     </thead>
-    @foreach ($order->items as $index=>$item)
+    @foreach($order->items as $index=>$item)
         <tr>
             <td>{{ $index + 1 }}</td>
             <td>{{ $item->type }}</td>

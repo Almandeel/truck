@@ -13,7 +13,47 @@
     <div class="card">
         <div class="card-header">
             طلب رقم {{ $order->id }}
-            <a href="{{ route('reports.order', $order->id) }}" class="btn btn-secondary btn-sm float-left">طباعة</a>
+            @permission('orders-print')
+                <a href="{{ route('reports.order', $order->id) }}" class="btn btn-secondary btn-sm float-left">طباعة</a>
+            @endpermission
+
+
+            @role('company')
+                @if($order->status == \App\Order::ORDER_ACCEPTED)
+                    <form style="display: inline-block; float:left" action="{{ route('orders.update', $order->id) }}?type=reserved" method="post">
+                        @csrf 
+                        @method('PUT')
+                        <button type="submit" class="btn btn-success btn-sm">
+                            <i class="fa fa-check"> استلام الطلب</i>
+                        </button>
+                    </form>
+                @endif
+
+                @if($order->status == \App\Order::ORDER_IN_SHIPPING)
+                @role('company')
+                    <form style="display: inline-block; float:left" action="{{ route('orders.update', $order->id) }}?type=shipping" method="post">
+                        @csrf 
+                        @method('PUT')
+                        <button type="submit" class="btn btn-success btn-sm">
+                            <i class="fa fa-check"> تم شحن الطلب </i>
+                        </button>
+                    </form>
+                @endrole
+            @endif
+
+            @if($order->status == \App\Order::ORDER_IN_ROAD)
+                @role('company')
+                    <form style="display: inline-block; float:left" action="{{ route('orders.update', $order->id) }}?type=road" method="post">
+                        @csrf 
+                        @method('PUT')
+                        <button type="submit" class="btn btn-success btn-sm">
+                            <i class="fa fa-check"> تم توصيل الطلب </i>
+                        </button>
+                    </form>
+                @endrole
+            @endif
+            @endrole
+
         </div>
         <div class="card-body">
             <table style="margin-bottom:3%" class="table table-bordered table-hover text-center bm-4">
@@ -48,10 +88,10 @@
                         <td>{{ $order->company->phone ?? '' }}</td>
                     </tr>
                     <tr>
-                        <th>تاريخ الموافقة</th>
-                        <td>{{ $order->accepted_at }}</td>
-                        <th>تاريخ التوصيل</th>
+                        <th>تاريخ التسليم</th>
                         <td>{{ $order->received_at }}</td>
+                        <th>تاريخ التوصيل</th>
+                        <td>{{ $order->delivered_at }}</td>
                     </tr>
                 </tbody>
             </table>

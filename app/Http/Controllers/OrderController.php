@@ -23,7 +23,37 @@ class OrderController extends Controller
      */
     public function index(Request $request)
     {
-        $orders = Order::all();
+        if(auth()->user()->hasRole('superadmin')) {
+            // where user is  super admin or customer services
+            if($request->type == 'deactive') {
+                $orders = Order::whereIn('status', [Order::ORDER_DEFAULT, Order::ORDER_ACCEPTED])->get();
+            }
+            if($request->type == 'active') {
+                $orders = Order::whereIn('status', [Order::ORDER_IN_SHIPPING, Order::ORDER_IN_ROAD])->get();
+            }
+            if($request->type == 'done') {
+                $orders = Order::whereIn('status', [Order::ORDER_DONE, Order::ORDER_CANCEL])->get();
+            }
+        }elseif(auth()->user()->hasRole('customer')) {
+            // where user is customer
+            if($request->type == 'active') {
+                $orders = Order::whereNotIn('status', [Order::ORDER_DONE, Order::ORDER_CANCEL])->where('user_add_id', auth()->user()->id)->get();
+            }
+            if($request->type == 'done') {
+                $orders = Order::whereIn('status', [Order::ORDER_DONE, Order::ORDER_CANCEL])->where('user_add_id', auth()->user()->id)->get();
+            }
+        }elseif(auth()->user()->hasRole('company')) {
+            // where user in company
+            if($request->type == 'deactive') {
+                $orders = Order::where('status', Order::ORDER_ACCEPTED)->where('company_id', null)->get();
+            }
+            if($request->type == 'active') {
+                $orders = Order::whereIn('status', [Order::ORDER_IN_SHIPPING, Order::ORDER_IN_ROAD])->where('company_id', auth()->user()->company_id)->get();
+            }
+            if($request->type == 'done') {
+                $orders = Order::whereIn('status', [Order::ORDER_DONE, Order::ORDER_CANCEL])->where('company_id', auth()->user()->company_id)->get();
+            }
+        }
         return view('dashboard.orders.index', compact('orders'));
     }
 
@@ -62,10 +92,7 @@ class OrderController extends Controller
             'phone'         => $request->phone,
             'from'          => $request->from,
             'to'            => $request->to,
-            'status'        => Order::ORDER_ACCEPTED,
-            'accepted_at'   => date('Y-m-d H:I'),
             'user_add_id'   => auth()->user()->id,
-            'user_accepted_id' => auth()->user()->id,
         ]);
 
         for ($index=0; $index < count($request->quantity); $index++) { 
@@ -77,7 +104,7 @@ class OrderController extends Controller
             ]);
         }
 
-        return back()->with('success', 'تمت العملية بنجاح');
+        return redirect()->route('orders.show', $order->id)->with('success', 'تمت العملية بنجاح');
     }
 
     /**
@@ -121,38 +148,62 @@ class OrderController extends Controller
                 'accepted_at' => date('Y-m-d H:I'),
             ]);
             return back()->with('success', 'تمت العملية بنجاح');
-        }else
-        {
-            $request->validate([
-                'name'              => 'required | string | max:45',  
-                'phone'             => 'required | string | max:255',
-                'from'              => 'required | string',
-                'to'                => 'required | string',
-                'order_type'        => 'required | string',
-            ]);
-    
-            $order->update([
-                'type'          => $request->order_type,
-                'name'          => $request->name,
-                'phone'         => $request->phone,
-                'from'          => $request->from,
-                'to'            => $request->to,
-            ]);
-
-            foreach ($order->items as $item) {
-                $item->delete();
-            }
-    
-            for ($index=0; $index < count($request->quantity); $index++) {
-                $order_items = OrderItem::create([
-                    'order_id'  => $order->id,
-                    'type'      => $request->item_type[$index],
-                    'quantity'  => $request->quantity[$index],
-                    'weight'    => $request->weight[$index],
-                ]);
-            }
-            return redirect()->route('orders.show', $order->id)->with('success', 'تمت العملية بنجاح');
         }
+
+        if($request->type == 'reserved'){
+            $order->update([
+                'status'        => Order::ORDER_IN_SHIPPING,
+                'company_id'    => auth()->user()->company_id,
+                'received_at'   => date('Y-m-d H:I'),
+            ]);
+            return back()->with('success', 'تمت العملية بنجاح');
+        }
+
+        if($request->type == 'shipping'){
+            $order->update([
+                'status'        => Order::ORDER_IN_ROAD,
+            ]);
+            return back()->with('success', 'تمت العملية بنجاح');
+        }
+
+        if($request->type == 'road'){
+            $order->update([
+                'status'        => Order::ORDER_DONE,
+                'delivered_at' => date('Y-m-d H:I'),
+            ]);
+            return back()->with('success', 'تمت العملية بنجاح');
+        }
+
+        $request->validate([
+            'name'              => 'required | string | max:45',  
+            'phone'             => 'required | string | max:255',
+            'from'              => 'required | string',
+            'to'                => 'required | string',
+            'order_type'        => 'required | string',
+        ]);
+    
+        $order->update([
+            'type'          => $request->order_type,
+            'name'          => $request->name,
+            'phone'         => $request->phone,
+            'from'          => $request->from,
+            'to'            => $request->to,
+        ]);
+
+        foreach ($order->items as $item) {
+            $item->delete();
+        }
+
+        for($index=0; $index < count($request->quantity); $index++) {
+            $order_items = OrderItem::create([
+                'order_id'  => $order->id,
+                'type'      => $request->item_type[$index],
+                'quantity'  => $request->quantity[$index],
+                'weight'    => $request->weight[$index],
+            ]);
+        }
+    
+        return redirect()->route('orders.show', $order->id)->with('success', 'تمت العملية بنجاح');
     }
 
     /**

@@ -24,7 +24,7 @@
 <body class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
-            <a href="../../index2.html"><b>Raeed</b></a>
+            <a href="{{ url('/') }}"><b>{{ env('APP_NAME') }}</b></a>
         </div>
         <!-- /.login-logo -->
         <div class="card">
@@ -68,6 +68,10 @@
                         </div>
                         <div class="col-6">
 
+                        </div>
+
+                        <div class="col-6">
+                            <a class="float-right mt-4" href="{{ route('register') }}">مستخدم جديد</a>
                         </div>
                         <!-- /.col -->
                     </div>

@@ -25,16 +25,19 @@ class AuthController extends Controller
         $user = User::create([
             'name'      => $request['name'],
             'phone'     => $request['phone'],
+            'code'      => $request['code'],
             'password'  => Hash::make($request['password']),
         ]);
 
         $credentials = request(['phone', 'password']);
 
+        $user->attachRole('customer');
+
         if (! $token = auth('api')->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        return $this->respondWithToken($token);
+        return $this->respondWithToken($token, $user);
     }
 
     /**
@@ -92,12 +95,14 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function respondWithToken($token)
+    protected function respondWithToken($token , $user)
     {
         return response()->json([
-            'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => auth('api')->factory()->getTTL() * 60
+            'access_token'  => $token,
+            'token_type'    => 'bearer',
+            'name'          => $user['name'],
+            'phone'         => $user['phone'],
+            'expires_in'    => auth('api')->factory()->getTTL() * 60
         ]);
     }
 }

@@ -12,11 +12,13 @@
     @endcomponent
     <div class="card">
         <div class="card-header">
+            @if(!auth()->user()->hasRole('company'))
             @permission('orders-create')
                 <a  href="{{ route('orders.create') }}" style="display:inline-block; margin-left:1%" class="btn btn-primary btn-sm pull-left">
                     <i class="fa fa-plus"> اضافة</i>
                 </a>
             @endpermission
+            @endif
         </div>
         <div class="card-body">
             <table id="datatable" class="table table-bordered table-hover text-center">
@@ -47,10 +49,10 @@
                                 @if($order->status == \App\Order::ORDER_ACCEPTED)
                                     تمت الموافقة
                                 @endif
-                                @if($order->status == \App\Order::ORDER_In_SHIPPING)
+                                @if($order->status == \App\Order::ORDER_IN_SHIPPING)
                                     في الشحن
                                 @endif
-                                @if($order->status == \App\Order::ORDER_In_ROAD)
+                                @if($order->status == \App\Order::ORDER_IN_ROAD)
                                     في الطريف
                                 @endif
                                 @if($order->status == \App\Order::ORDER_DONE)

@@ -18,4 +18,4 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('reports/order/{id}', 'ReportController@order')->name('reports.order');
 });
 
-Auth::routes(['register' => false]);
+Auth::routes();

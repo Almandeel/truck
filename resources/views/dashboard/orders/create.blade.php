@@ -40,13 +40,13 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>اسم العميل</label>
-                            <input type="text" name="name" class="form-control" placeholder="اسم العميل">
+                            <input {{ auth()->user()->hasRole('customer') ? 'readonly' .' ' . "value=" . auth()->user()->name  : '' }} type="text" name="name" class="form-control" placeholder="اسم العميل">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>رقم الهاتف</label>
-                            <input type="number" name="phone" class="form-control" placeholder="رقم الهاتف">
+                            <input {{ auth()->user()->hasRole('customer') ? 'readonly' .' ' . "value=" . auth()->user()->phone  : '' }} type="number" name="phone" class="form-control" placeholder="رقم الهاتف">
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -121,7 +121,7 @@
         `
         <tr>
             <td>
-                <input type="number" name="item_type[]" class="form-control" placeholder="البضاعة">
+                <input type="text" name="item_type[]" class="form-control" placeholder="البضاعة">
             </td>
             <td>
                 <input type="number" name="quantity[]" class="form-control" placeholder="العدد">

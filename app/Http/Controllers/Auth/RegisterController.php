@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\Market;
+use App\Company;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -52,7 +53,6 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'phone'     => ['required', 'string', 'max:10', 'unique:users'],
             'name'      => ['required', 'string', 'max:100'],
-            'address'   => ['required', 'string', 'max:200'],
             'password'  => ['required', 'string', 'min:6'],
         ]);
     }
@@ -68,14 +68,28 @@ class RegisterController extends Controller
 
         $user = User::create([
             'name'      => $data['name'],
-            'address'   => $data['address'],
+            'address'   => $data['address'] ?? '',
             'phone'     => $data['phone'],
-            'market_id' => $market->id,
             'password'  => Hash::make($data['password']),
         ]);
 
-        $user->attachRole('market');
+        if(request()->type == 'company') {
+            $company = Company::create([
+                'name' => $data['name'],
+                'phone' => $data['phone'],
+                'address' => $data['address'],
+            ]);
 
+            $user->update([
+                'company_id' => $company->id
+            ]);
+
+            $user->attachRole('company');
+
+        }else {
+            $user->attachRole('customer');
+        }
+        
         return $user;
     }
 }

@@ -21,18 +21,15 @@ Route::group([], function () {
     Route::get('units', 'Api\ApiController@units');
     Route::get('vehicles', 'Api\ApiController@vehicles');
     Route::get('zones', 'Api\ApiController@zones');
+    Route::post('order', 'Api\ApiController@order');
 });
 
 Route::group([
-
     'middleware' => 'api',
-
 ], function ($router) {
-
     Route::post('login', 'Api\AuthController@login');
     Route::post('logout', 'Api\AuthController@logout');
     Route::post('register', 'Api\AuthController@register');
     Route::post('refresh', 'Api\AuthController@refresh');
     Route::post('me', 'Api\AuthController@me');
-
 });

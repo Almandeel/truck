@@ -4,15 +4,27 @@ return [
 
 
     'role_structure' => [
+
         'superadmin' => [
             'users'                 => 'c,r,u,d',
             'units'                 => 'c,r,u,d',
             'zones'                 => 'c,r,u,d',
             'vehicles'              => 'c,r,u,d',
-            'orders'                => 'c,r,u,d',
+            'orders'                => 'c,r,u,d,p',
             'companies'             => 'c,r,u,d',
             'dashboard'             => 'r',
         ],
+
+        'company' => [
+            'orders'                => 'r',
+            'dashboard'             => 'r',
+        ],
+
+        'customer' => [
+            'orders'                => 'c,r,d',
+            'dashboard'             => 'r',
+        ],
+
     ],
     'permission_structure' => [
         'super' => [
@@ -31,6 +43,7 @@ return [
         'c' => 'create',
         'r' => 'read',
         'u' => 'update',
-        'd' => 'delete'
+        'd' => 'delete',
+        'p' => 'print',
     ]
 ];

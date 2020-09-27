@@ -129,7 +129,7 @@
         `
         <tr>
             <td>
-                <input type="number" name="item_type[]" class="form-control" placeholder="البضاعة">
+                <input type="text" name="item_type[]" class="form-control" placeholder="البضاعة">
             </td>
             <td>
                 <input type="number" name="quantity[]" class="form-control" placeholder="العدد">
