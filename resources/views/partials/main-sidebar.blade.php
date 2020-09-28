@@ -1,4 +1,3 @@
-{{ dd(request()->segment(1)) }}
 
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-light-primary elevation-4">
