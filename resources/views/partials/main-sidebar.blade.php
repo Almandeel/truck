@@ -17,7 +17,7 @@
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                     data-accordion="false">
                     @permission('dashboard-read')
-                        <li class="nav-item">
+                        <li class="nav-item active">
                             <a href="{{ url('/') }}" class="nav-link">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>

@@ -35,6 +35,27 @@
         #swal2-content {
             text-align: center;
         }
+
+        .navbar-light .navbar-nav .nav-link, .navbar-light .navbar-nav .nav-link:hover, .navbar-light .navbar-nav .nav-link:focus {
+            color: #fff;
+        }
+
+        .navbar-white {
+            background-color: #e33113;
+        }
+
+        aside {
+            background-color:#000 !important;
+        }
+
+        [class*=sidebar-light-] .sidebar a , [class*=sidebar-light-] .sidebar a:hover {
+            color: #fff
+        }
+
+        .nav-item .active {
+            background-color: #e33113 !important;
+            color: #fff
+        }
     </style>
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">

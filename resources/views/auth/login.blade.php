@@ -24,7 +24,8 @@
 <body class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
-            <a href="{{ url('/') }}"><b>{{ env('APP_NAME') }}</b></a>
+            {{-- <a href="{{ url('/') }}"><b>{{ env('APP_NAME') }}</b></a> --}}
+            <a  href="{{ url('/') }}"><img style="width:100%" src="{{ asset('img/logo.png') }}"></a>
         </div>
         <!-- /.login-logo -->
         <div class="card">

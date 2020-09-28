@@ -40,7 +40,7 @@ class ApiController extends Controller
             'phone'         => $request->phone,
             'from'          => $request->from,
             'to'            => $request->to,
-            'user_add_id'   => auth()->user()->id,
+            'user_add_id'   => $request->user_id,
         ]);
         
         $order_items = OrderItem::create([
@@ -48,6 +48,7 @@ class ApiController extends Controller
             'type'      => $request->item_type,
             'quantity'  => $request->quantity,
             'weight'    => $request->weight,
+            'unit_id'    => $request->unit,
         ]);
     }
 }
