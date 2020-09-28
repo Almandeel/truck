@@ -1,3 +1,4 @@
+{{ dd(request()->segment(1)) }}
 
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-light-primary elevation-4">
@@ -12,13 +13,13 @@
     <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
         <!-- Sidebar Menu -->
-        <nav class="mt-2">
+        <nav class="mt-1">
             @role('superadmin')
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                     data-accordion="false">
                     @permission('dashboard-read')
                         <li class="nav-item">
-                            <a href="{{ url('/') }}" class="nav-link {{ (request()->segment(2) == '') ? 'active' : '' }}">
+                            <a href="{{ url('/') }}" class="nav-link {{ (request()->segment(1) == '') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     لوحة التحكم
@@ -28,7 +29,7 @@
                     @endpermission
                     @permission('orders-read')
                         <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
+                            <a href="#" class="nav-link {{ (request()->segment(1) == 'orders') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-list"></i>
                                 <p>
                                     الطلبات
@@ -37,7 +38,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ route('orders.index') }}?type=deactive" class="nav-link">
+                                    <a href="{{ route('orders.index') }}?type=deactive" class="nav-link {{ (request()->segment(2) == 'type=deactive') ? 'active' : '' }}">
                                         <i class="fa fa-list nav-icon"></i>
                                         <p>الطلبات الجديدة</p>
                                     </a>
@@ -59,7 +60,7 @@
                     @endpermission
                     @permission('companies-read')
                         <li class="nav-item">
-                            <a href="{{ route('companies.index') }}" class="nav-link {{ (request()->segment(2) == 'orders') ? 'active' : '' }}">
+                            <a href="{{ route('companies.index') }}" class="nav-link {{ (request()->segment(1) == 'companies') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-home"></i>
                                 <p>
                                     الشركات
@@ -69,7 +70,7 @@
                     @endpermission
                     @permission('vehicles-read')
                         <li class="nav-item">
-                            <a href="{{ route('vehicles.index') }}" class="nav-link {{ (request()->segment(2) == 'vehicles') ? 'active' : '' }}">
+                            <a href="{{ route('vehicles.index') }}" class="nav-link {{ (request()->segment(1) == 'vehicles') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-car"></i>
                                 <p>
                                     المركبات
@@ -79,7 +80,7 @@
                     @endpermission
                     @permission('zones-read')
                         <li class="nav-item">
-                            <a href="{{ route('zones.index') }}" class="nav-link {{ (request()->segment(2) == 'zones') ? 'active' : '' }}">
+                            <a href="{{ route('zones.index') }}" class="nav-link {{ (request()->segment(1) == 'zones') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-map"></i>
                                 <p>
                                     المناطق
@@ -89,7 +90,7 @@
                     @endpermission
                     @permission('units-read')
                         <li class="nav-item">
-                            <a href="{{ route('units.index') }}" class="nav-link">
+                            <a href="{{ route('units.index') }}" class="nav-link {{ (request()->segment(1) == 'units') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-book"></i>
                                 <p>
                                     الوحدات
@@ -99,7 +100,7 @@
                     @endpermission
                     @permission('users-read')
                         <li class="nav-item">
-                            <a href="{{ route('users.index') }}" class="nav-link">
+                            <a href="{{ route('users.index') }}" class="nav-link {{ (request()->segment(1) == 'users') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-users"></i>
                                 <p>
                                     @lang('global.users')
