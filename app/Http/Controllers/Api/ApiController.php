@@ -7,6 +7,7 @@ use App\Unit;
 use App\Zone;
 use App\Order;
 use App\Vehicle;
+use App\OrderItem;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
