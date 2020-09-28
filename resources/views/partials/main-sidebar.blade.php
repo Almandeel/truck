@@ -114,7 +114,7 @@
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                 data-accordion="false">
                     <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link">
+                        <a href="#" class="nav-link {{ (request()->segment(1) == 'orders') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-list"></i>
                             <p>
                                 الطلبات
@@ -143,7 +143,7 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
             data-accordion="false">
                 <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
+                    <a href="#" class="nav-link {{ (request()->segment(1) == 'orders') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-list"></i>
                         <p>
                             الطلبات

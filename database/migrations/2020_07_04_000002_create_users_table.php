@@ -29,6 +29,7 @@ class CreateUsersTable extends Migration
             $table->string('email', 25)->nullable();
             $table->string('password', 64);
             $table->unsignedBigInteger('company_id')->nullable();
+            $table->tinyInteger('status')->default(1);
             $table->unique(["phone"], 'username_UNIQUE');
             $table->timestamps();
 

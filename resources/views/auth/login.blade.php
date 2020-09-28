@@ -84,12 +84,27 @@
     <!-- /.login-box -->
 
     <!-- jQuery -->
-    <script src="../../plugins/jquery/jquery.min.js"></script>
+    <script src="{{ asset('dashboard/plugins/jquery/jquery.min.js') }}"></script>
     <!-- Bootstrap 4 -->
-    <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('dashboard/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- AdminLTE App -->
-    <script src="../../dist/js/adminlte.min.js"></script>
+    <script src="{{ asset('dashboard/dist/js/adminlte.min.js') }}"></script>
 
+    <!-- Sweet Alert 2 -->
+    <link rel="stylesheet" href="{{ asset('dashboard/plugins/sweetalert2/sweetalert2.min.css') }}">
+    <script src="{{ asset('dashboard/plugins/sweetalert2/sweetalert2.all.min.js') }}"></script>
+
+    <script>
+        $(function () {
+            @if(session('warning'))
+            Swal.fire({
+                icon: 'warning',
+                title: '{{ session()->get("warning") }}',
+                okButtonText: 'حسنا',
+            })
+            @endif
+        })
+    </script>
 </body>
 
 </html>

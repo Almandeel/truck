@@ -127,10 +127,6 @@
                             <input type="text" name="phone" class="form-control" placeholder="رقم الهاتف" required value="{{ auth()->user()->phone }}">
                         </div>
                         <div class="form-group">
-                            <label>العنوان</label>
-                            <input type="text" name="address" class="form-control" placeholder="العنوان " required value="{{ auth()->user()->address }}">
-                        </div>
-                        <div class="form-group">
                             <label>كلمة المرور القديمة </label>
                             <input type="password" name="old_password" class="form-control" placeholder="كلمة المرور القديمة " required>
                         </div>

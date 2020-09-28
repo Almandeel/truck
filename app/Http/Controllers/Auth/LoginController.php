@@ -52,6 +52,15 @@ class LoginController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
-        // dd($user, $user->roles);
+        if($user->status == 0) {
+            $this->guard()->logout();
+
+            $request->session()->invalidate();
+
+            $request->session()->regenerateToken();
+
+            return redirect('/login')->with('warning', 'تعذر تسجيل الدخول الرجاء التواصل مع خدمة العملاء');
+
+        }
     }
 }

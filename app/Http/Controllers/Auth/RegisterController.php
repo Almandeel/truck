@@ -7,6 +7,7 @@ use App\Market;
 use App\Company;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -24,6 +25,28 @@ class RegisterController extends Controller
     */
 
     use RegistersUsers;
+
+    /**
+     * The user has been registered.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+
+
+
+    protected function registered(Request $request, $user)
+    {
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/login')->with('warning', 'تم التسجيل سيتم التواصل معك قريبا');
+
+    }
 
     /**
      * Where to redirect users after registration.
@@ -81,7 +104,8 @@ class RegisterController extends Controller
             ]);
 
             $user->update([
-                'company_id' => $company->id
+                'company_id' => $company->id,
+                'status'     => 0,
             ]);
 
             $user->attachRole('company');

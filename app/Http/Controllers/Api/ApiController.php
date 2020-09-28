@@ -53,5 +53,6 @@ class ApiController extends Controller
             'weight'    => $request->weight,
             'unit_id'    => $request->unit,
         ]);
+            
     }
 }

@@ -47,11 +47,11 @@
 
                                 @permission('users-update')
                                     <a class="btn btn-warning btn-xs" href="{{ route('users.edit', $u->id) }}"><i class="fa fa-edit"></i> تعديل </a>
-                                    {{-- <form style="display:inline-block" action="{{ route('users.update', $u->id) }}?type=status" method="post">
+                                    <form style="display:inline-block" action="{{ route('users.update', $u->id) }}?type=status" method="post">
                                         @csrf 
                                         @method('PUT')
-                                        <button class="btn btn-default btn-xs" type="submit"><i class="fa fa-edit"></i> {{$u->status ? 'الغاء التفعيل' : 'تفعيل' }} </a>
-                                    </form> --}}
+                                        <button class="btn btn-{{ $u->status ? 'danger' : 'success' }} btn-xs" type="submit"><i class="fa fa-{{ $u->status ? 'times' : 'check' }}"></i> {{$u->status ? 'الغاء التفعيل' : 'تفعيل' }} </a>
+                                    </form>
                                 @endpermission
 
                                 @permission('users-delete')

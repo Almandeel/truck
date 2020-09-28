@@ -115,6 +115,18 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+
+        if($request->type == 'status') {
+            $user->update([
+                'status' => $user->status ? 0 : 1
+            ]);
+
+            session()->flash('success', 'تمت العملية بنجاح');
+
+            return back();
+
+        }
+
         request()->validate([
             'phone'         => ['required', 'string',  Rule::unique('users', 'phone')->ignore($user->id)],
             'password'      => 'nullable | string | min:6',
