@@ -17,8 +17,8 @@
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                     data-accordion="false">
                     @permission('dashboard-read')
-                        <li class="nav-item active">
-                            <a href="{{ url('/') }}" class="nav-link">
+                        <li class="nav-item">
+                            <a href="{{ url('/') }}" class="nav-link {{ (request()->segment(2) == '') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     لوحة التحكم
@@ -59,7 +59,7 @@
                     @endpermission
                     @permission('companies-read')
                         <li class="nav-item">
-                            <a href="{{ route('companies.index') }}" class="nav-link">
+                            <a href="{{ route('companies.index') }}" class="nav-link {{ (request()->segment(2) == 'orders') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-home"></i>
                                 <p>
                                     الشركات
@@ -69,7 +69,7 @@
                     @endpermission
                     @permission('vehicles-read')
                         <li class="nav-item">
-                            <a href="{{ route('vehicles.index') }}" class="nav-link">
+                            <a href="{{ route('vehicles.index') }}" class="nav-link {{ (request()->segment(2) == 'vehicles') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-car"></i>
                                 <p>
                                     المركبات
@@ -79,7 +79,7 @@
                     @endpermission
                     @permission('zones-read')
                         <li class="nav-item">
-                            <a href="{{ route('zones.index') }}" class="nav-link">
+                            <a href="{{ route('zones.index') }}" class="nav-link {{ (request()->segment(2) == 'zones') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-map"></i>
                                 <p>
                                     المناطق

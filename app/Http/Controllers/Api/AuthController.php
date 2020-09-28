@@ -53,7 +53,9 @@ class AuthController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        return $this->respondWithToken($token);
+        $user  = auth('api')->user();
+
+        return $this->respondWithToken($token, $user);
     }
 
     /**

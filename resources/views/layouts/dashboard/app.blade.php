@@ -52,9 +52,20 @@
             color: #fff
         }
 
-        .nav-item .active {
+        .nav-item .nav-link.active {
             background-color: #e33113 !important;
             color: #fff
+        }
+        
+        .os-content {
+            padding: 0 !important;
+            height: 0 !important;
+        }
+
+        .layout-navbar-fixed .wrapper .sidebar-light-primary .brand-link:not([class*=navbar]) {
+            background-color: #e33113;
+            color: #fff;
+            text-align: center;
         }
     </style>
     <!-- Google Font: Source Sans Pro -->
