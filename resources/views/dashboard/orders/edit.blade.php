@@ -64,6 +64,18 @@
                             </select>
                         </div>
                     </div>
+                    <div class="col-md-12">
+                        <label>تاريخ الشحن</label>
+                        <input type="date" name="shipping_date" class="form-control" value="{{ $order->shipping_date }}" placeholder="تاريخ الشحن">
+                    </div>
+                    <div class="col-md-6">
+                        <label>اسم المخلص</label>
+                        <input type="text" name="savior_name" value="{{ $order->savior_name }}" class="form-control" placeholder="اسم المخلص">
+                    </div>
+                    <div class="col-md-6">
+                        <label>اسم رقم هاتف المخلص</label>
+                        <input type="number" name="savior_phone" value="{{ $order->savior_phone }}" class="form-control" placeholder="رقم هاتف المخلص">
+                    </div>
                 </div>
                 <hr>
                 <div class="container">

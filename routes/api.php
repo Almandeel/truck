@@ -17,11 +17,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group([], function () {
+Route::group(['middleware' => 'api'], function ($router) {
     Route::get('units', 'Api\ApiController@units');
     Route::get('vehicles', 'Api\ApiController@vehicles');
     Route::get('zones', 'Api\ApiController@zones');
     Route::post('order', 'Api\ApiController@order');
+    Route::get('orders/{user_id}', 'Api\ApiController@orders');
+    Route::get('order/{order_id}/{user_id}', 'Api\ApiController@showOrder');
 });
 
 Route::group([

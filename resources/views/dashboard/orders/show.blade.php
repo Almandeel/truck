@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.app', ['datatable' => true])
+@extends('layouts.dashboard.app', ['datatable' => true, 'modals' => ['tender']])
 
 @section('title')
     الطلبات | عرض
@@ -8,41 +8,35 @@
     @component('partials._breadcrumb')
         @slot('title', ['الطلبات', 'عرض'])
         @slot('url', [route('orders.index'),'#'])
-        @slot('icon', ['list', 'eye'])
     @endcomponent
     <div class="card">
         <div class="card-header">
             طلب رقم {{ $order->id }}
+
             @permission('orders-print')
                 <a href="{{ route('reports.order', $order->id) }}" class="btn btn-secondary btn-sm float-left">طباعة</a>
             @endpermission
 
-
-            @role('company')
-                @if($order->status == \App\Order::ORDER_ACCEPTED)
-                    <form style="display: inline-block; float:left" action="{{ route('orders.update', $order->id) }}?type=reserved" method="post">
-                        @csrf 
-                        @method('PUT')
-                        <button type="submit" class="btn btn-success btn-sm">
-                            <i class="fa fa-check"> استلام الطلب</i>
-                        </button>
-                    </form>
-                @endif
-
-                @if($order->status == \App\Order::ORDER_IN_SHIPPING)
-                @role('company')
-                    <form style="display: inline-block; float:left" action="{{ route('orders.update', $order->id) }}?type=shipping" method="post">
-                        @csrf 
-                        @method('PUT')
-                        <button type="submit" class="btn btn-success btn-sm">
-                            <i class="fa fa-check"> تم شحن الطلب </i>
-                        </button>
-                    </form>
-                @endrole
+            @if($order->status == \App\Order::ORDER_DEFAULT)
+                @permission('orders-update')
+                <form class="float-left" style="display: inline-block; margin:0 1%" action="{{ route('orders.update', $order->id) }}?type=accepted" method="post">
+                    @csrf 
+                    @method('PUT')
+                    <button type="submit" class="btn btn-success btn-sm">
+                        <i class="fa fa-check"> موافقة</i>
+                    </button>
+                </form>
+                @endpermission
             @endif
 
-            @if($order->status == \App\Order::ORDER_IN_ROAD)
-                @role('company')
+            @role('company')
+                @if($order->status == \App\Order::ORDER_ACCEPTED && !in_array(auth()->user()->company_id, $tenders))
+                        <button type="button" class="btn btn-success btn-sm float-left" data-toggle="modal" data-target="#TenderyModal">
+                            <i class="fa fa-check"> استلام الطلب</i>
+                        </button>
+                @endif
+
+                @if($order->status == \App\Order::ORDER_IN_ROAD)
                     <form style="display: inline-block; float:left" action="{{ route('orders.update', $order->id) }}?type=road" method="post">
                         @csrf 
                         @method('PUT')
@@ -50,8 +44,17 @@
                             <i class="fa fa-check"> تم توصيل الطلب </i>
                         </button>
                     </form>
-                @endrole
-            @endif
+                @endif
+
+                @if($order->status == \App\Order::ORDER_IN_SHIPPING)
+                    <form style="display: inline-block; float:left" action="{{ route('orders.update', $order->id) }}?type=shipping" method="post">
+                        @csrf 
+                        @method('PUT')
+                        <button type="submit" class="btn btn-success btn-sm">
+                            <i class="fa fa-check"> تم شحن الطلب </i>
+                        </button>
+                    </form>
+                @endif
             @endrole
 
         </div>
@@ -63,12 +66,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th>اسم العميل</th>
-                        <td>{{ $order->name }}</td>
-                        <th>رقم الهاتف</th>
-                        <td>{{ $order->phone }}</td>
-                    </tr>
+                    @role(['superadmin', 'services'])
+                        <tr>
+                            <th>اسم العميل</th>
+                            <td>{{ $order->name }}</td>
+                            <th>رقم الهاتف</th>
+                            <td>{{ $order->phone }}</td>
+                        </tr>
+                    @endrole
                     <tr>
                         <th>نوع الشحن</th>
                         <td>{{ $order->type }}</td>
@@ -81,17 +86,41 @@
                         <th>منطقة التفريغ</th>
                         <td>{{ $order->to }}</td>
                     </tr>
+                    @role(['superadmin', 'services'])
+                        <tr>
+                            <th>شركة الشحن</th>
+                            <td>{{ $order->company->name ?? '' }}</td>
+                            <th>رقم هاتف الشركة</th>
+                            <td>{{ $order->company->phone ?? '' }}</td>
+                        </tr>
+                        <tr>
+                            <th>تاريخ التسليم</th>
+                            <td>{{ $order->received_at }}</td>
+                            <th>تاريخ التوصيل</th>
+                            <td>{{ $order->delivered_at }}</td>
+                        </tr>
+                    @endrole
+
+                    @if(auth()->user()->hasRole(['superadmin', 'services']))
+                        <tr>
+                            <th>اسم المخلص</th>
+                            <td>{{ $order->savior_name }}</td>
+                            <th>رقم هاتف المخلص</th>
+                            <td>{{ $order->savior_phone }}</td>
+                        </tr>
+                    @else 
+                        @if($order->status != \App\Order::ORDER_DEFAULT && $order->status != \App\Order::ORDER_ACCEPTED)
+                            <tr>
+                                <th>اسم المخلص</th>
+                                <td>{{ $order->savior_name }}</td>
+                                <th>رقم هاتف المخلص</th>
+                                <td>{{ $order->savior_phone }}</td>
+                            </tr>
+                        @endif
+                    @endif
                     <tr>
-                        <th>شركة الشحن</th>
-                        <td>{{ $order->company->name ?? '' }}</td>
-                        <th>رقم هاتف الشركة</th>
-                        <td>{{ $order->company->phone ?? '' }}</td>
-                    </tr>
-                    <tr>
-                        <th>تاريخ التسليم</th>
-                        <td>{{ $order->received_at }}</td>
-                        <th>تاريخ التوصيل</th>
-                        <td>{{ $order->delivered_at }}</td>
+                        <th>تاريخ الشحن</th>
+                        <td>{{ $order->shipping_date }}</td>
                     </tr>
                 </tbody>
             </table>

@@ -5,12 +5,9 @@ namespace App\Http\Controllers;
 use App\Unit;
 use App\Zone;
 use App\Order;
-use App\Driver;
-use App\Market;
 use App\Vehicle;
 use App\OrderItem;
-use App\WarehouseOrder;
-use App\WarehouseUsers;
+use App\OrderTender;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -25,35 +22,49 @@ class OrderController extends Controller
     {
         if(auth()->user()->hasRole('superadmin')) {
             // where user is  super admin or customer services
-            if($request->type == 'deactive') {
-                $orders = Order::whereIn('status', [Order::ORDER_DEFAULT, Order::ORDER_ACCEPTED])->get();
-            }
             if($request->type == 'active') {
                 $orders = Order::whereIn('status', [Order::ORDER_IN_SHIPPING, Order::ORDER_IN_ROAD])->get();
             }
+
+            if($request->type == 'deactive') {
+                $orders = Order::whereIn('status', [Order::ORDER_DEFAULT, Order::ORDER_ACCEPTED])->get();
+            }
+
             if($request->type == 'done') {
                 $orders = Order::whereIn('status', [Order::ORDER_DONE, Order::ORDER_CANCEL])->get();
             }
-        }elseif(auth()->user()->hasRole('customer')) {
+        }
+
+        if(auth()->user()->hasRole('customer')) {
             // where user is customer
-            if($request->type == 'active') {
-                $orders = Order::whereNotIn('status', [Order::ORDER_DONE, Order::ORDER_CANCEL])->where('user_add_id', auth()->user()->id)->get();
-            }
             if($request->type == 'done') {
                 $orders = Order::whereIn('status', [Order::ORDER_DONE, Order::ORDER_CANCEL])->where('user_add_id', auth()->user()->id)->get();
             }
-        }elseif(auth()->user()->hasRole('company')) {
+            if($request->type == 'active') {
+                $orders = Order::whereNotIn('status', [Order::ORDER_DONE, Order::ORDER_CANCEL])->where('user_add_id', auth()->user()->id)->get();
+            }
+        }
+
+        if(auth()->user()->hasRole('company')) {
             // where user in company
             if($request->type == 'deactive') {
                 $orders = Order::where('status', Order::ORDER_ACCEPTED)->where('company_id', null)->get();
             }
-            if($request->type == 'active') {
-                $orders = Order::whereIn('status', [Order::ORDER_IN_SHIPPING, Order::ORDER_IN_ROAD])->where('company_id', auth()->user()->company_id)->get();
-            }
+
             if($request->type == 'done') {
                 $orders = Order::whereIn('status', [Order::ORDER_DONE, Order::ORDER_CANCEL])->where('company_id', auth()->user()->company_id)->get();
             }
+
+            if($request->type == 'active') {
+                $orders = Order::whereIn('status', [Order::ORDER_IN_SHIPPING, Order::ORDER_IN_ROAD])->where('company_id', auth()->user()->company_id)->get();
+            }
+            
         }
+
+        if($request->type == '') {
+            $orders = Order::whereIn('status', [Order::ORDER_IN_SHIPPING, Order::ORDER_IN_ROAD])->get();
+        }
+
         return view('dashboard.orders.index', compact('orders'));
     }
 
@@ -92,6 +103,9 @@ class OrderController extends Controller
             'phone'         => $request->phone,
             'from'          => $request->from,
             'to'            => $request->to,
+            'shipping_date' => $request->shipping_date,
+            'savior_name'   => $request->savior_name,
+            'savior_phone'  => $request->savior_phone,
             'user_add_id'   => auth()->user()->id,
         ]);
 
@@ -115,7 +129,11 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        return view('dashboard.orders.show', compact('order'));
+        $tenders = [];
+        if(auth()->user()->company_id) {
+            $tenders = OrderTender::pluck('company_id')->toArray();
+        }
+        return view('dashboard.orders.show', compact('order', 'tenders'));
     }
 
     /**
@@ -150,12 +168,24 @@ class OrderController extends Controller
             return back()->with('success', 'تمت العملية بنجاح');
         }
 
-        if($request->type == 'reserved'){
+        if($request->type == 'tender'){
+            $tender = OrderTender::create([
+                'order_id'      => $order->id,
+                'company_id'    => auth()->user()->company_id,
+                'price'         => $request->price,
+                'duration'      => $request->duration,
+            ]);
+
+            return back()->with('success', 'تمت العملية بنجاح');
+        }
+
+        if($request->type == 'received'){
             $order->update([
                 'status'        => Order::ORDER_IN_SHIPPING,
-                'company_id'    => auth()->user()->company_id,
+                'company_id'    => $request->company_id,
                 'received_at'   => date('Y-m-d H:I'),
             ]);
+            
             return back()->with('success', 'تمت العملية بنجاح');
         }
 
@@ -188,6 +218,9 @@ class OrderController extends Controller
             'phone'         => $request->phone,
             'from'          => $request->from,
             'to'            => $request->to,
+            'savior_name'   => $request->savior_name,
+            'savior_phone'  => $request->savior_phone,
+            'shipping_date' => $request->shipping_date,
         ]);
 
         foreach ($order->items as $item) {
@@ -219,41 +252,5 @@ class OrderController extends Controller
         ]);
 
         return back();
-    }
-
-
-    public function orders(Request $request) {
-        $orders = Order::where('market_id', $request->market)->where('status', 0)->get();
-        return response()->json($orders);
-    }
-
-
-    public function marketOrdersStore(Request $request) {
-        $request->validate([
-            'phone'             => 'required | string | max:45',  
-            'address'           => 'required | string | max:255',
-            'amount'            => 'required' ,
-            'receiver_address'  => 'required | string | max:45', 
-            'receiver_phone'    => 'required | string | max:45', 
-        ]);
-
-        $request_data = $request->except('_token');
-        $request_data['delivery_amount'] = $request->from == $request->to ? 200 : 250;
-
-        $request_data['market_id'] = auth()->user()->market_id;
-
-        $order = Order::create($request_data);
-
-        // $warehouse = WarehouseOrder::create([
-        //     'order_id' => $order->id,
-        //     'user_id' => auth()->user()->id,
-        //     'warehouse_id' => $request->warehouse_id,
-        // ]);
-
-        $order->update([
-            'order_number' => date('Ym') . $order->id
-        ]);
-
-        return back()->with('success', 'تمت العملية بنجاح');
     }
 }

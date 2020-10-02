@@ -13,6 +13,11 @@ use App\Http\Controllers\Controller;
 
 class ApiController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['only' => ['orders']]);
+    }
+
     public function units() {
         $units = Unit::all();
         return response()->json($units);
@@ -29,6 +34,7 @@ class ApiController extends Controller
     }
 
     public function order(Request $request) {
+
         $request->validate([
             'name'              => 'required | string | max:45',  
             'phone'             => 'required | string | max:255',
@@ -43,6 +49,9 @@ class ApiController extends Controller
             'phone'         => $request->phone,
             'from'          => $request->from,
             'to'            => $request->to,
+            'shipping_date' => $request->shipping_date,
+            'savior_name'   => $request->savior_name,
+            'savior_phone'  => $request->savior_phone,
             'user_add_id'   => $request->user_id,
         ]);
         
@@ -53,6 +62,23 @@ class ApiController extends Controller
             'weight'    => $request->weight,
             'unit_id'    => $request->unit,
         ]);
-            
+
+        return response()->json([
+            'order_number' => $order->id,
+        ]);
+    }
+
+    public function orders($user_id) {
+        $orders = Order::where('user_add_id', $user_id)->get();
+        return response()->json([
+            'orders' => $orders,
+        ]);
+    }
+
+    public function showOrder($order_id, $user_id) {
+        $order = Order::where('id', $order_id)->where('user_add_id', $user_id)->get();
+        return response()->json([
+            'order' => $order,
+        ]);
     }
 }

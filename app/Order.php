@@ -24,7 +24,7 @@ class Order extends Model
 
     protected $fillable = [
         'name', 'phone', 'type', 'status','accepted_at', 'received_at', 'from', 'to', 'company_id',
-        'user_add_id', 'user_accepted_id', 'delivered_at'
+        'user_add_id', 'user_accepted_id', 'delivered_at', 'shipping_date', 'savior_name', 'savior_phone'
     ];
 
 

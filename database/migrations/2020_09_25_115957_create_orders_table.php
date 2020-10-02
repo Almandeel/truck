@@ -21,6 +21,9 @@ class CreateOrdersTable extends Migration
             $table->tinyInteger('status')->default(0);
             $table->string('from')->nullable();
             $table->string('to')->nullable();
+            $table->string('savior_name')->nullable();
+            $table->string('savior_phone')->nullable();
+            $table->date('shipping_date')->nullable();
             $table->dateTime('accepted_at')->nullable();
             $table->dateTime('received_at')->nullable();
             $table->dateTime('delivered_at')->nullable();

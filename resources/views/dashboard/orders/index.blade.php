@@ -74,17 +74,6 @@
                                         <i class="fa fa-edit"> تعديل</i>
                                     </a>
                                 @endpermission
-                                @if($order->status == \App\Order::ORDER_DEFAULT)
-                                    @permission('orders-update')
-                                    <form style="display: inline-block" action="{{ route('orders.update', $order->id) }}?type=accepted" method="post">
-                                        @csrf 
-                                        @method('PUT')
-                                        <button type="submit" class="btn btn-success btn-sm">
-                                            <i class="fa fa-check"> موافقة</i>
-                                        </button>
-                                    </form>
-                                    @endpermission
-                                @endif
                             </td>
                         </tr>
                     @endforeach
