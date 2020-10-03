@@ -15,7 +15,7 @@ class ApiController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware('auth:api', ['only' => ['orders']]);
+        $this->middleware('auth:api', ['only' => ['orders']]);
     }
 
     public function units() {
@@ -34,15 +34,13 @@ class ApiController extends Controller
     }
 
     public function order(Request $request) {
-
-        $request->validate([
-            'name'              => 'required | string | max:45',  
-            'phone'             => 'required | string | max:255',
-            'from'              => 'required | string',
-            'to'                => 'required | string',
-            'order_type'        => 'required | string',
-        ]);
-
+        // $request->validate([
+        //     'name'              => 'required | string | max:45',  
+        //     'phone'             => 'required | string | max:255',
+        //     'from'              => 'required | string',
+        //     'to'                => 'required | string',
+        //     'order_type'        => 'required | string',
+        // ]);
         $order = Order::create([
             'type'          => $request->order_type,
             'name'          => $request->name,

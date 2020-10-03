@@ -20,8 +20,9 @@
             @endpermission
             @endif
         </div>
-        <div class="card-body">
-            <table id="datatable" class="table table-bordered table-hover text-center">
+        <div id="app" class="card-body">
+            {{-- 
+                <table id="datatable" class="table table-bordered table-hover text-center">
                 <thead>
                     <tr>
                         <th>الاسم</th>
@@ -78,7 +79,12 @@
                         </tr>
                     @endforeach
                 </tbody>
-            </table>
+            </table> --}}
+            <order-component></order-component>
         </div>
     </div>
 @endsection
+
+@push('js')
+<script  src="{{ asset('js/app.js') }}"></script>
+@endpush

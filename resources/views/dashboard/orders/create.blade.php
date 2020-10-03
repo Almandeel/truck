@@ -109,7 +109,7 @@
 @endsection
 
 @push('js')
-    <script>
+    <script type="application/javascript">
         let container = 
         `
         <tr>
