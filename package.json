@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "adminator": "^1.0.0",
+        "laravel-echo": "^1.8.1",
         "pusher-js": "^7.0.0",
         "yarn": "^1.22.10"
     }
