@@ -54,18 +54,20 @@ class ApiController extends Controller
             'savior_phone'  => $request->savior_phone,
             'user_add_id'   => $request->user_id,
         ]);
-        
-        $order_items = OrderItem::create([
-            'order_id'  => $order->id,
-            'type'      => $request->item_type,
-            'quantity'  => $request->quantity,
-            'weight'    => $request->weight,
-            'unit_id'    => $request->unit,
-        ]);
+
+        for ($index=0; $index < count($request->quantity); $index++) { 
+            $order_items = OrderItem::create([
+                'order_id'  => $order->id,
+                'type'      => $request->item_type[$index],
+                'quantity'  => $request->quantity[$index],
+                'weight'    => $request->weight[$index],
+            ]);
+        }
 
         return response()->json([
             'order_number' => $order->id,
         ]);
+
     }
 
     public function orders($user_id) {
