@@ -175,7 +175,6 @@ class OrderController extends Controller
                 'price'         => $request->price,
                 'duration'      => $request->duration,
             ]);
-
             return back()->with('success', 'تمت العملية بنجاح');
         }
 

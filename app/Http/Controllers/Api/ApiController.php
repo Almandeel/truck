@@ -15,7 +15,7 @@ class ApiController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['only' => ['orders']]);
+        // $this->middleware('auth:api', ['only' => ['orders']]);
     }
 
     public function units() {
@@ -69,7 +69,20 @@ class ApiController extends Controller
     }
 
     public function orders($user_id) {
-        $orders = Order::where('user_add_id', $user_id)->get();
+        $orders = Order::where('user_add_id', $user_id)->get()->map(function ($order) {
+            return [
+                'id'            => $order->id,
+                'name'          => $order->name,
+                'phone'         => $order->phone,
+                'from'          => $order->from,
+                'to'            => $order->to,
+                'type_order'    => $order->type,
+                'savior_name'   => $order->savior_name,
+                'savior_phone'  => $order->savior_phone,
+                'shipping_date' => $order->shipping_date,
+                'status'        => Order::status[$order->status],
+            ];
+        });
         return response()->json([
             'orders' => $orders,
         ]);

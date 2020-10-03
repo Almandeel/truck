@@ -145,9 +145,48 @@
                     </tr>
                 @endforeach
             </table>
+
+            @if(in_array($order->status, [\App\Order::ORDER_DEFAULT, \App\Order::ORDER_ACCEPTED]))
+            @role(['super', 'customer', 'services'])
+                <table class="table table-bordered table-hover text-center">
+                    <thead>
+                        <tr><th colspan="4">افضل العروض</th></tr>
+                        <tr>
+                            <th>#</th>
+                            @role(['super', 'services'])
+                                <th>اسم الشركة</th>
+                            @endrole
+                            <th>مدة الشحن</th>
+                            <th>السعر</th>
+                            <th>خيارات</th>
+                        </tr>
+                    </thead>
+                    @foreach ($order->tenders->where('status', 0) as $index=>$tender)
+                        <tr>
+                            <td>{{ $index + 1 }}</td>
+                            @role(['super', 'services'])
+                                <td>{{ $tender->company->name }}</td>
+                            @endrole
+                            <td>{{ $tender->duration }}</td>
+                            <td>{{ $tender->price }}</td>
+                            <td>
+                                <form style="display: inline-block" action="{{ route('orders.update', $order->id) }}?type=received" method="post">
+                                    @csrf 
+                                    @method('PUT')
+                                    <button type="submit" class="btn btn-success btn-sm">
+                                        <i class="fa fa-check"> موافقة </i>
+                                        <input type="hidden" name="company_id" value="{{ $tender->company_id }}">
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </table>
+            @endrole
+            @endif
         </div>
         <div class="card-footer">
-
+            
         </div>
     </div>
 @endsection

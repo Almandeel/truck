@@ -16,6 +16,7 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.1",
         "niklasravnsborg/laravel-pdf": "^4.0",
+        "pusher/pusher-php-server": "~4.0",
         "santigarcor/laratrust": "5.2.*",
         "spatie/laravel-translatable": "^4.2",
         "tymon/jwt-auth": "^1.0"

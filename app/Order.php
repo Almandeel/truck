@@ -36,4 +36,10 @@ class Order extends Model
         return $this->belongsTo('App\Company', 'company_id');
     }
 
+    public function tenders() {
+        return $this->hasMany('App\OrderTender');
+    }
+
+
+
 }
