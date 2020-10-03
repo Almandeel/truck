@@ -22,7 +22,7 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::get('vehicles', 'Api\ApiController@vehicles');
     Route::get('zones', 'Api\ApiController@zones');
     Route::post('order', 'Api\ApiController@order');
-    Route::post('orders/{user_id}', 'Api\ApiController@orders');
+    Route::post('orders', 'Api\ApiController@orders');
     Route::post('order/{order_id}/{user_id}', 'Api\ApiController@showOrder');
 });
 
