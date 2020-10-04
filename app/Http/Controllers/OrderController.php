@@ -21,7 +21,51 @@ class OrderController extends Controller
      */
     public function index(Request $request)
     {
-        return view('dashboard.orders.index');
+        if(auth()->user()->hasRole('superadmin')) {
+            // where user is  super admin or customer services
+            if($request->type == 'active') {
+                $orders = Order::whereIn('status', [Order::ORDER_IN_SHIPPING, Order::ORDER_IN_ROAD])->get();
+            }
+
+            if($request->type == 'deactive') {
+                $orders = Order::whereIn('status', [Order::ORDER_DEFAULT, Order::ORDER_ACCEPTED])->get();
+            }
+
+            if($request->type == 'done') {
+                $orders = Order::whereIn('status', [Order::ORDER_DONE, Order::ORDER_CANCEL])->get();
+            }
+        }
+
+        if(auth()->user()->hasRole('customer')) {
+            // where user is customer
+            if($request->type == 'done') {
+                $orders = Order::whereIn('status', [Order::ORDER_DONE, Order::ORDER_CANCEL])->where('user_add_id', auth()->user()->id)->get();
+            }
+            if($request->type == 'active') {
+                $orders = Order::whereNotIn('status', [Order::ORDER_DONE, Order::ORDER_CANCEL])->where('user_add_id', auth()->user()->id)->get();
+            }
+        }
+
+        if(auth()->user()->hasRole('company')) {
+            // where user in company
+            if($request->type == 'deactive') {
+                $orders = Order::where('status', Order::ORDER_ACCEPTED)->where('company_id', null)->get();
+            }
+
+            if($request->type == 'done') {
+                $orders = Order::whereIn('status', [Order::ORDER_DONE, Order::ORDER_CANCEL])->where('company_id', auth()->user()->company_id)->get();
+            }
+
+            if($request->type == 'active') {
+                $orders = Order::whereIn('status', [Order::ORDER_IN_SHIPPING, Order::ORDER_IN_ROAD])->where('company_id', auth()->user()->company_id)->get();
+            }
+            
+        }
+
+        if($request->type == '') {
+            $orders = Order::whereIn('status', [Order::ORDER_IN_SHIPPING, Order::ORDER_IN_ROAD])->get();
+        }
+        return view('dashboard.orders.index', compact('orders'));
     }
 
     /**

@@ -21,7 +21,6 @@
             @endif
         </div>
         <div id="app" class="card-body">
-            {{-- 
                 <table id="datatable" class="table table-bordered table-hover text-center">
                 <thead>
                     <tr>
@@ -79,12 +78,12 @@
                         </tr>
                     @endforeach
                 </tbody>
-            </table> --}}
-            <order-component></order-component>
+            </table>
+            {{-- <order-component></order-component> --}}
         </div>
     </div>
 @endsection
 
-@push('js')
+{{-- @push('js')
 <script  src="{{ asset('js/app.js') }}"></script>
-@endpush
+@endpush --}}
