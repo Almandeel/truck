@@ -56,7 +56,7 @@
                 <span class="info-box-icon"><i class="fas fa-building"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">كل الشركات </span>
-                    <span class="info-box-number">{{ $company }}</span>
+                    <span class="info-box-number">{{ $companies }}</span>
                     
                 </div>
                 <!-- /.info-box-content -->
