@@ -28,14 +28,14 @@ Route::group(['middleware' => 'auth:api'], function ($router) {
     Route::post('customer/profile', 'Api\CustomerController@profile');
     Route::post('customer/orders', 'Api\CustomerController@orders');
     Route::post('customer/order', 'Api\CustomerController@order');
-    Route::get('customer/order/{user_id}', 'Api\CustomerController@showOrder');
+    Route::post('customer/details', 'Api\CustomerController@showOrder');
     Route::put('customer/order/update', 'Api\CustomerController@updateOrder');
 
     // company api
     Route::post('company/profile', 'Api\CompanyController@profile');
     Route::post('company/orders/new', 'Api\CompanyController@newOrders');
     Route::post('company/orders/old', 'Api\CompanyController@oldOrders');
-    Route::post('company/order/{user_id}', 'Api\CompanyController@showOrder');
+    Route::post('company/order/{order_id}', 'Api\CompanyController@showOrder');
     Route::put('customer/order/update', 'Api\CustomerController@updateOrder');
 });
 

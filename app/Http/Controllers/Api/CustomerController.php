@@ -80,9 +80,9 @@ class CustomerController extends Controller
         ]);
     }
 
-    public function showOrder($order_id) {
-        $order = Order::with('items')->where('id', $order_id)->where('user_add_id', auth('api')->user()->id)->first();
-        $tenders = OrderTender::where('order_id', $order_id)->where('status', 0)->get()->map(function($tender) {
+    public function showOrder(Request $request) {
+        $order = Order::with('items')->where('id', $request->order_id)->where('user_add_id', auth('api')->user()->id)->first();
+        $tenders = OrderTender::where('order_id', $$request->order_id)->where('status', 0)->get()->map(function($tender) {
             return [
                 'price'         => $tender->price,
                 'duration'      => $tender->duration,
