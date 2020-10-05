@@ -23,6 +23,8 @@ class CompanyController extends Controller
                 'status'        => __('global.' . Order::status[$order->status])
             ];
         });
+
+        return response()->json([$orders]); 
     }
 
     public function oldOrders() {
