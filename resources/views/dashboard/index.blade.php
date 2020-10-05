@@ -52,7 +52,7 @@
     <h5 class="mt-4 mb-2"></h5>
     <div class="row">
         <div class="col-md-6 col-sm-6 col-12">
-            <div class="info-box bg-success">
+            <div class="info-box bg-danger">
                 <span class="info-box-icon"><i class="fas fa-building"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">كل الشركات </span>
@@ -65,7 +65,7 @@
         </div>
 
         <div class="col-md-6 col-sm-6 col-12">
-            <div class="info-box bg-success">
+            <div class="info-box bg-danger">
                 <span class="info-box-icon"><i class="fas fa-building"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">كل المستخدمين </span>
