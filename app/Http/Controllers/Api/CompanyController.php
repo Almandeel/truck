@@ -20,7 +20,6 @@ class CompanyController extends Controller
                 'order_type'    => $order->type,
                 'from'          => $order->from,
                 'to'            => $order->to,
-                'status'        => __('global.' . Order::status[$order->status])
             ];
         });
 
