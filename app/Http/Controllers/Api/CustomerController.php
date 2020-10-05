@@ -82,7 +82,7 @@ class CustomerController extends Controller
 
     public function showOrder(Request $request) {
         $order = Order::with('items')->where('id', $request->order_id)->where('user_add_id', auth('api')->user()->id)->first();
-        $tenders = OrderTender::where('order_id', $$request->order_id)->where('status', 0)->get()->map(function($tender) {
+        $tenders = OrderTender::where('order_id', $request->order_id)->where('status', 0)->get()->map(function($tender) {
             return [
                 'price'         => $tender->price,
                 'duration'      => $tender->duration,
