@@ -42,9 +42,8 @@ Route::group(['middleware' => 'auth:api'], function ($router) {
 Route::group([
     'middleware' => 'api',
 ], function ($router) {
-    Route::post('login', 'Api\AuthController@login');
-    Route::post('logout', 'Api\AuthController@logout');
-    Route::post('register', 'Api\AuthController@register');
-    Route::post('refresh', 'Api\AuthController@refresh');
-    Route::post('me', 'Api\AuthController@me');
+    Route::post('customer/login', 'Api\AuthController@login');
+    Route::post('customer/logout', 'Api\AuthController@logout');
+    Route::post('customer/register', 'Api\AuthController@register');
+    Route::post('customer/refresh', 'Api\AuthController@refresh');
 });
