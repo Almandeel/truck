@@ -21,16 +21,32 @@ class AuthController extends Controller
     }
 
     public function register(Request $request) {
+
         $user = User::create([
             'name'      => $request['name'],
             'phone'     => $request['phone'],
+            'address'   => $request['address'],
             'code'      => $request['code'],
             'password'  => Hash::make($request['password']),
         ]);
 
+        if($request->type == 'company') {
+            $company = Company::create([
+                'name' => $data['name'],
+                'phone' => $data['phone'],
+                'address' => $data['address'],
+            ]);
+            $user->update([
+                'company_id' => $company->id,
+                'status'     => 0,
+            ]);
+            $user->attachRole('company');
+        }else {
+            $user->attachRole('customer');
+        }
+
         $credentials = request(['phone', 'password']);
 
-        $user->attachRole('customer');
 
         if (! $token = auth('api')->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
