@@ -50,7 +50,7 @@ class CustomerController extends Controller
             'shipping_date' => $request->shipping_date,
             'savior_name'   => $request->savior_name,
             'savior_phone'  => $request->savior_phone,
-            'user_add_id'   => $request->user_add_id,
+            'user_add_id'   => auth('api')->user()->id,
         ]);
 
         for ($index=0; $index < count($request->quantity); $index++) { 
