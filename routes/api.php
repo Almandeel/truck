@@ -47,3 +47,13 @@ Route::group([
     Route::post('customer/register', 'Api\AuthController@register');
     Route::post('customer/refresh', 'Api\AuthController@refresh');
 });
+
+
+Route::group([
+    'middleware' => 'api',
+], function ($router) {
+    Route::post('company/login', 'Api\AuthController@login');
+    Route::post('company/logout', 'Api\AuthController@logout');
+    Route::post('company/register', 'Api\AuthController@register');
+    Route::post('company/refresh', 'Api\AuthController@refresh');
+});
