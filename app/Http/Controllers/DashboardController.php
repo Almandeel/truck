@@ -23,6 +23,12 @@ class DashboardController extends Controller
         if($request->order_id){
             $search_order = Order::where('order_number', $request->order_id)->first();
         }
-        return view('dashboard.index');
+
+        $order_default = Order::whereIn('status', [Order::ORDER_DEFAULT, order::ORDER_ACCEPTED])->count();
+        $order_in_road = Order::where('status', Order::ORDER_IN_ROAD)->count();
+        $order_done = Order::where('status', Order::ORDER_DONE)->count();
+        $users  = User::where('company_id', null)->count();
+        $companies = Company::count();
+        return view('dashboard.index', compact('order_default', 'order_in_road', 'order_done', 'users', 'companies'));
     }
 }

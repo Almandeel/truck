@@ -6,5 +6,6 @@ return [
     'order_in_shipping' => 'جاري الشحن',
     'order_in_road'     => 'في الطريق',
     'order_done'        => 'تم التسليم',
-    'order_cancel'      => 'تم الالغاء'
+    'order_cancel'      => 'تم الالغاء',
+    'users'             => 'المستخدمين'
 ];
