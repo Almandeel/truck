@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
+use App\Order;
+use App\OrderTender;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class CompanyController extends Controller
 {
