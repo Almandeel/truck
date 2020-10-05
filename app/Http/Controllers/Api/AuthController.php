@@ -33,9 +33,9 @@ class AuthController extends Controller
 
         if($request->type == 'company') {
             $company = Company::create([
-                'name' => $data['name'],
-                'phone' => $data['phone'],
-                'address' => $data['address'],
+                'name' => $request['name'],
+                'phone' => $request['phone'],
+                'address' => $request['address'],
             ]);
             $user->update([
                 'company_id' => $company->id,
