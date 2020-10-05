@@ -7,6 +7,7 @@ use App\OrderItem;
 use App\OrderTender;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class CustomerController extends Controller
 {
@@ -34,12 +35,22 @@ class CustomerController extends Controller
 
     public function order(Request $request) {
         $request->validate([
+            
+        ]);
+
+        $validator = Validator::make($request->all(), [
             'name'              => 'required | string | max:45',  
             'phone'             => 'required | string | max:255',
             'from'              => 'required | string',
             'to'                => 'required | string',
             'order_type'        => 'required | string',
         ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'error' => $validator->messages(),
+            ]);
+        }
         
         $order = Order::create([
             'type'          => $request->order_type,
