@@ -7,7 +7,9 @@ use App\User;
 use App\Order;
 use App\Driver;
 use App\Market;
+use App\Company;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
 {
