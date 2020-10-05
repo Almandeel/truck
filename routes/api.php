@@ -20,9 +20,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['middleware' => 'auth:api'], function ($router) {
 
     // global api
-    Route::get('customer/units', 'Api\ApiController@units');
-    Route::get('customer/vehicles', 'Api\ApiController@vehicles');
-    Route::get('customer/zones', 'Api\ApiController@zones');
+    Route::post('customer/units', 'Api\ApiController@units');
+    Route::post('customer/vehicles', 'Api\ApiController@vehicles');
+    Route::post('customer/zones', 'Api\ApiController@zones');
 
     // customers api
     Route::post('customer/profile', 'Api\CustomerController@profile');
