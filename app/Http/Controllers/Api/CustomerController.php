@@ -20,6 +20,7 @@ class CustomerController extends Controller
     public function orders() {
         $orders = Order::with('items')->where('user_add_id', auth('api')->user()->id)->get()->map(function($order) {
             return [
+                'id'            => $order->id,
                 'from'          => $order->from,
                 'to'            => $order->to,
                 'order_type'    => $order->type,
@@ -44,6 +45,7 @@ class CustomerController extends Controller
             'from'              => 'required | string',
             'to'                => 'required | string',
             'order_type'        => 'required | string',
+            'shipping_date'     => 'required | string',
         ]);
 
         if ($validator->fails()) {
