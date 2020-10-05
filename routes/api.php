@@ -17,13 +17,26 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['middleware' => 'api'], function ($router) {
+Route::group(['middleware' => 'auth:api'], function ($router) {
+
+    // global api
     Route::get('units', 'Api\ApiController@units');
     Route::get('vehicles', 'Api\ApiController@vehicles');
     Route::get('zones', 'Api\ApiController@zones');
-    Route::post('order', 'Api\ApiController@order');
-    Route::post('orders/{user_id}', 'Api\ApiController@orders');
-    Route::post('order/{order_id}/{user_id}', 'Api\ApiController@showOrder');
+
+    // customers api
+    Route::post('customer/profile', 'Api\CustomerController@profile');
+    Route::post('customer/orders', 'Api\CustomerController@orders');
+    Route::post('customer/order', 'Api\CustomerController@order');
+    Route::get('customer/order/{user_id}', 'Api\CustomerController@showOrder');
+    Route::put('customer/order/update', 'Api\CustomerController@updateOrder');
+
+    // company api
+    Route::post('company/profile', 'Api\CompanyController@profile');
+    Route::post('company/orders/new', 'Api\CompanyController@newOrders');
+    Route::post('company/orders/old', 'Api\CompanyController@oldOrders');
+    Route::post('company/order/{user_id}', 'Api\CompanyController@showOrder');
+    Route::put('customer/order/update', 'Api\CustomerController@updateOrder');
 });
 
 Route::group([

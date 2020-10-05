@@ -34,38 +34,7 @@ class ApiController extends Controller
     }
 
     public function order(Request $request) {
-        // $request->validate([
-        //     'name'              => 'required | string | max:45',  
-        //     'phone'             => 'required | string | max:255',
-        //     'from'              => 'required | string',
-        //     'to'                => 'required | string',
-        //     'order_type'        => 'required | string',
-        // ]);
-        $order = Order::create([
-            'type'          => $request->order_type,
-            'name'          => $request->name,
-            'phone'         => $request->phone,
-            'from'          => $request->from,
-            'to'            => $request->to,
-            'shipping_date' => $request->shipping_date,
-            'savior_name'   => $request->savior_name,
-            'savior_phone'  => $request->savior_phone,
-            'user_add_id'   => $request->user_id,
-        ]);
-
-        for ($index=0; $index < count($request->quantity); $index++) { 
-            $order_items = OrderItem::create([
-                'order_id'  => $order->id,
-                'type'      => $request->item_type[$index],
-                'quantity'  => $request->quantity[$index],
-                'weight'    => $request->weight[$index],
-            ]);
-        }
-
-        return response()->json([
-            'order_number' => $order->id,
-        ]);
-
+        
     }
 
     public function orders($user_id) {
@@ -95,4 +64,6 @@ class ApiController extends Controller
             'order' => $order,
         ]);
     }
+
+    
 }
