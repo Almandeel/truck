@@ -41,8 +41,8 @@ class CompanyController extends Controller
         return response()->json([$orders]); 
     }
 
-    public function showOrder($order_id) {
-        $order = Order::with('items')->where('id', $order_id)->where('company_id', auth('api')->user()->company_id)->first()->map(function ($order) {
+    public function showOrder(Request $request) {
+        $order = Order::with('items')->where('id', $request->order_id)->where('company_id', auth('api')->user()->company_id)->first()->map(function ($order) {
             return [
                 'id'            => $order->id,
                 'from'          => $order->from,

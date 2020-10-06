@@ -35,8 +35,8 @@ Route::group(['middleware' => 'auth:api'], function ($router) {
     Route::post('company/profile', 'Api\CompanyController@profile');
     Route::post('company/new', 'Api\CompanyController@newOrders'); // new orders
     Route::post('company/old', 'Api\CompanyController@oldOrders'); // old orders
-    Route::post('company/order/{order_id}', 'Api\CompanyController@showOrder');
-    Route::put('customer/order/update', 'Api\CustomerController@updateOrder');
+    Route::post('company/order', 'Api\CompanyController@showOrder');
+    Route::put('customer/order', 'Api\CustomerController@updateOrder');
 });
 
 Route::group([
