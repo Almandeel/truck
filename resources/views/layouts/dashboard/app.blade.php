@@ -93,16 +93,16 @@
             <div class="content-wrapper">
                 <!-- Content Header (Page header) -->
                 <div class="content-header">
-                    <div class="container-fluid">
+                    <div class="">
                         
                     </div><!-- /.container-fluid -->
                 </div>
                 <!-- /.content-header -->
     
-                {{-- <div class="container"> --}}
+                <div class="container">
                     @include('partials.messages')
                     @yield('content')
-                {{-- </div> --}}
+                </div>
             </div>
             <!-- /.content-wrapper -->
     
@@ -174,7 +174,30 @@
                 "info": true,
                 "autoWidth": true,
                 "responsive": true,
-                "bDestroy": true
+                "bDestroy": true,
+                'oLanguage'    : {
+						"sEmptyTable" : "لا توجد بيانات في هذا الجدول",
+						"sInfo" : "عرض _START_ الى _END_ من _TOTAL_ صفوف",
+						"sInfoEmpty" : "عرض 0 الى 0 من 0 صفوف",
+						"sInfoFiltered" : "(تصفية من _MAX_ مجموع صفوف)",
+						"sInfoPostFix" :    "",
+						"sInfoThousands" :  ",",
+						"sLengthMenu" :     "عرض _MENU_ صفوف",
+						"sLoadingRecords" : "تحميل ...",
+						"sProcessing" :     "معالجة ...",
+						"sSearch" :         "بحث:",
+						"sZeroRecords" :    "لا توجد نتائج مطابقة",
+						"oPaginate": {
+							"sFirst" : "الاول",
+							"sLast" : "الاخير",
+							"sNext" : "التالي",
+							"sPrevious" : "السابق",
+						},
+						"oAria": {
+							"sSortAscending" :  " => تفعيل الترتيب تنازليا",
+							"sSortDescending" : " => تفعيل الترتيب تصاعديا"
+						}
+					},
             });
         });
     </script>
