@@ -24,6 +24,7 @@
                 <table id="datatable" class="table table-bordered table-hover text-center">
                 <thead>
                     <tr>
+                        <th>#</th>
                         @role(['superadmin', 'services'])
                         <th>الاسم</th>
                         <th>رقم الهاتف</th>
@@ -37,8 +38,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($orders as $order)
+                    @foreach ($orders as $index=>$order)
                         <tr>
+                            <td>{{ $index }}</td>
                             @role(['superadmin', 'services'])
                             <td>{{ $order->name }}</td>
                             <td>{{ $order->phone }}</td>

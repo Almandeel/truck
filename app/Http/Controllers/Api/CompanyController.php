@@ -23,7 +23,7 @@ class CompanyController extends Controller
             ];
         });
 
-        return response()->json([$orders]); 
+        return response()->json($orders); 
     }
 
     public function oldOrders() {
