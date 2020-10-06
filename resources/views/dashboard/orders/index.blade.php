@@ -21,7 +21,7 @@
             @endif
         </div>
         <div id="app" class="card-body">
-                <table id="datatable" class="table table-bordered table-hover text-center">
+                <table style="width:100%" id="datatable" class="table table-bordered table-hover text-center">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -40,7 +40,7 @@
                 <tbody>
                     @foreach ($orders as $index=>$order)
                         <tr>
-                            <td>{{ $index }}</td>
+                            <td>{{ $index + 1 }}</td>
                             @role(['superadmin', 'services'])
                             <td>{{ $order->name }}</td>
                             <td>{{ $order->phone }}</td>
