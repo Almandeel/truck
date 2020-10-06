@@ -77,7 +77,8 @@ class CompanyController extends Controller
             'price'         => $request->price,
             'duration'      => $request->duration,
         ]);
-        // return $this->showOrder($order->id);
+
+        return response()->json(['message' => 'success'], 200);
     }
 
 
