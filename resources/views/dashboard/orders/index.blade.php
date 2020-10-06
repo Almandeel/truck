@@ -24,8 +24,10 @@
                 <table id="datatable" class="table table-bordered table-hover text-center">
                 <thead>
                     <tr>
+                        @role(['super', 'services'])
                         <th>الاسم</th>
                         <th>رقم الهاتف</th>
+                        @endrole
                         <th>نوع الشحن</th>
                         <th>منطقة الشحن</th>
                         <th>منطقة التفريغ</th>
@@ -37,8 +39,10 @@
                 <tbody>
                     @foreach ($orders as $order)
                         <tr>
+                            @role(['super', 'services'])
                             <td>{{ $order->name }}</td>
                             <td>{{ $order->phone }}</td>
+                            @endrole
                             <td>{{ $order->type }}</td>
                             <td>{{ $order->from }}</td>
                             <td>{{ $order->to }}</td>
