@@ -96,14 +96,14 @@ class CustomerController extends Controller
     }
 
     public function updateOrder(Request $request) {
-        // $order = Order::find($request->order_id);
+        $order = Order::find($request->order_id);
 
-        $tender = OrderTender::create([
-            'order_id'      => $request->order_id,
-            'company_id'    => auth('api')->user()->company_id,
-            'price'         => $request->price,
-            'duration'      => $request->duration,
+        $order->update([
+            'status'        => Order::ORDER_IN_SHIPPING,
+            'company_id'    => $request->company_id,
+            'received_at'   => date('Y-m-d H:I'),
         ]);
+
         return response()->json(['message' => 'success'], 200);
     }
 
