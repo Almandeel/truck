@@ -97,7 +97,7 @@ class CustomerController extends Controller
 
     public function updateOrder(Request $request) {
         $order = Order::find($request->order_id);
-
+        dd($order);
         $order->update([
             'status'        => Order::ORDER_IN_SHIPPING,
             'company_id'    => $request->company_id,
