@@ -147,13 +147,13 @@
             </table>
 
             @if(in_array($order->status, [\App\Order::ORDER_DEFAULT, \App\Order::ORDER_ACCEPTED]))
-            @role(['super', 'customer', 'services'])
+            @role(['superadmin', 'customer', 'services'])
                 <table class="table table-bordered table-hover text-center">
                     <thead>
                         <tr><th colspan="4">افضل العروض</th></tr>
                         <tr>
                             <th>#</th>
-                            @role(['super', 'services'])
+                            @role(['superadmin', 'services'])
                                 <th>اسم الشركة</th>
                             @endrole
                             <th>مدة الشحن</th>
@@ -164,7 +164,7 @@
                     @foreach ($order->tenders->where('status', 0) as $index=>$tender)
                         <tr>
                             <td>{{ $index + 1 }}</td>
-                            @role(['super', 'services'])
+                            @role(['superadmin', 'services'])
                                 <td>{{ $tender->company->name }}</td>
                             @endrole
                             <td>{{ $tender->duration }}</td>
