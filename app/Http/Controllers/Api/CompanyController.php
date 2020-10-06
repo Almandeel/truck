@@ -42,7 +42,7 @@ class CompanyController extends Controller
     }
 
     public function showOrder(Request $request) {
-        $order = Order::with('items')->where('id', $request->order_id)->where('company_id', auth('api')->user()->company_id)->first()->map(function ($order) {
+        $order = Order::with('items')->where('id', $request->order_id)->where('company_id', auth('api')->user()->company_id)->get()->map(function ($order) {
             return [
                 'id'            => $order->id,
                 'from'          => $order->from,
