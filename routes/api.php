@@ -33,8 +33,8 @@ Route::group(['middleware' => 'auth:api'], function ($router) {
 
     // company api
     Route::post('company/profile', 'Api\CompanyController@profile');
-    Route::post('company/orders/new', 'Api\CompanyController@newOrders');
-    Route::post('company/orders/old', 'Api\CompanyController@oldOrders');
+    Route::post('company/new', 'Api\CompanyController@newOrders'); // new orders
+    Route::post('company/old', 'Api\CompanyController@oldOrders'); // old orders
     Route::post('company/order/{order_id}', 'Api\CompanyController@showOrder');
     Route::put('customer/order/update', 'Api\CustomerController@updateOrder');
 });
