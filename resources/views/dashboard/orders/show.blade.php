@@ -150,7 +150,7 @@
             @role(['superadmin', 'customer', 'services'])
                 <table class="table table-bordered table-hover text-center">
                     <thead>
-                        <tr><th colspan="4">افضل العروض</th></tr>
+                        <tr><th colspan="5">افضل العروض</th></tr>
                         <tr>
                             <th>#</th>
                             @role(['superadmin', 'services'])
