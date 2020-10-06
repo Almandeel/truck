@@ -25,6 +25,10 @@ return [
             'dashboard'             => 'r',
         ],
 
+        'services' => [
+            'order'                => 'c,r,u',
+        ],
+
     ],
     'permission_structure' => [
         'super' => [

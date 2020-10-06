@@ -24,7 +24,7 @@
                 <table id="datatable" class="table table-bordered table-hover text-center">
                 <thead>
                     <tr>
-                        @role(['super', 'services'])
+                        @role(['superadmin', 'services'])
                         <th>الاسم</th>
                         <th>رقم الهاتف</th>
                         @endrole
@@ -39,7 +39,7 @@
                 <tbody>
                     @foreach ($orders as $order)
                         <tr>
-                            @role(['super', 'services'])
+                            @role(['superadmin', 'services'])
                             <td>{{ $order->name }}</td>
                             <td>{{ $order->phone }}</td>
                             @endrole
