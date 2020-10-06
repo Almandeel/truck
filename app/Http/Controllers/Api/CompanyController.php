@@ -71,15 +71,13 @@ class CompanyController extends Controller
     }
 
     public function updateOrder(Request $request) {
-        $order = Order::find($request->id);
-        $order->update([
-            'company_id'    => $request->company_id,
-            'received_at'   => date('Y-m-d H:I'),
+        $tender = OrderTender::create([
+            'order_id'      => $request->order_id,
+            'company_id'    => auth('api')->user()->company_id,
+            'price'         => $request->price,
+            'duration'      => $request->duration,
         ]);
-
-        return response()->json([
-            'order'     => $order,
-        ]); 
+        // return $this->showOrder($order->id);
     }
 
 
