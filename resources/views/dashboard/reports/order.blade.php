@@ -1,10 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Order </title>
+    <style>
+        * {
+            direction: rtl;
+            font-family:XB Riyaz, sans-serif
+        }
+    </style>
 </head>
 <body>
     <table style="margin-bottom:3%" class="table table-bordered table-hover text-center bm-4">
@@ -15,7 +20,7 @@
         </thead>
         <tbody>
             <tr>
-                <th>اسم العميل</th>
+                <th>Customer</th>
                 <td>{{ $order->name }}</td>
                 <th>رقم الهاتف</th>
                 <td>{{ $order->phone }}</td>

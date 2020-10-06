@@ -15,7 +15,7 @@
             <h3 class="card-title float-right">قائمة الطلبات</h3>
             @if(!auth()->user()->hasRole('company'))
             @permission('orders-create')
-                <a  href="{{ route('orders.create') }}" style="display:inline-block; margin-left:1%" class="btn btn-primary btn-sm pull-left">
+                <a  href="{{ route('orders.create') }}" style="display:inline-block; margin-left:1%" class="btn btn-primary btn-sm float-left">
                     <i class="fa fa-plus"> اضافة</i>
                 </a>
             @endpermission
