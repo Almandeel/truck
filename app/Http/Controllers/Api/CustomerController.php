@@ -96,10 +96,10 @@ class CustomerController extends Controller
     }
 
     public function updateOrder(Request $request) {
-        $order = Order::find($request->order_id);
+        // $order = Order::find($request->order_id);
 
         $tender = OrderTender::create([
-            'order_id'      => $order->id,
+            'order_id'      => $request->order_id,
             'company_id'    => auth('api')->user()->company_id,
             'price'         => $request->price,
             'duration'      => $request->duration,
