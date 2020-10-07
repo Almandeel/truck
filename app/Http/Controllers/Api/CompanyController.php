@@ -40,7 +40,7 @@ class CompanyController extends Controller
                     'status'        => __('global.' . Order::status[$order->status])
                 ];
             });
-            return response()->json([$orders]); 
+            return response()->json($orders); 
         }else {
             return response()->json(['error' => 'Unauthorized'], 401);
         }

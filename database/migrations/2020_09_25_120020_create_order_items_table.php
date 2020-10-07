@@ -27,6 +27,8 @@ class CreateOrderItemsTable extends Migration
 
             $table->foreign('unit_id')->references('id')->on('units')
             ->onUpdate('cascade')->onDelete('cascade');
+            \DB::statement('ALTER TABLE orders AUTO_INCREMENT = 100;');
+
         });
     }
 
