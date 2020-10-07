@@ -23,6 +23,7 @@ class CreateOrdersTable extends Migration
             $table->string('to')->nullable();
             $table->string('savior_name')->nullable();
             $table->string('savior_phone')->nullable();
+            $table->string('car_type')->nullable();
             $table->date('shipping_date')->nullable();
             $table->dateTime('accepted_at')->nullable();
             $table->dateTime('received_at')->nullable();
