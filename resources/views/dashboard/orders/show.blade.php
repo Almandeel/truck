@@ -14,7 +14,7 @@
             طلب رقم {{ $order->id }}
 
             @permission('orders-print')
-                <a href="{{ route('reports.order', $order->id) }}" class="btn btn-secondary btn-sm float-left">طباعة</a>
+                <a href="{{ route('reports.order', $order->id) }}" target="_blank" class="btn btn-secondary btn-sm float-left">طباعة</a>
             @endpermission
 
             @if($order->status == \App\Order::ORDER_DEFAULT)
