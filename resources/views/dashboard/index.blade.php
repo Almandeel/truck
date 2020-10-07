@@ -5,7 +5,9 @@
 @section('content')
 
 
-<div class="container-fluid">
+@role('superadmin')
+<div class="">
+
     <h5 class="mt-4 mb-2"></h5>
     <div class="row">
         <div class="col-md-4 col-sm-6 col-12">
@@ -79,5 +81,6 @@
     </div>
 
 </div>
+@endrole
 
 @endsection

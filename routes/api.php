@@ -42,16 +42,14 @@ Route::group(['middleware' => 'auth:api'], function ($router) {
 Route::group([
     'middleware' => 'api',
 ], function ($router) {
+
+    //  Customer Log
     Route::post('customer/login', 'Api\AuthController@login');
     Route::post('customer/logout', 'Api\AuthController@logout');
     Route::post('customer/register', 'Api\AuthController@register');
     Route::post('customer/refresh', 'Api\AuthController@refresh');
-});
 
-
-Route::group([
-    'middleware' => 'api',
-], function ($router) {
+    // Company log
     Route::post('company/login', 'Api\AuthController@login');
     Route::post('company/logout', 'Api\AuthController@logout');
     Route::post('company/register', 'Api\AuthController@register');
