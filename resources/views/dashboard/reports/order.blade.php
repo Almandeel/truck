@@ -20,10 +20,8 @@
         .table {
             width: 100%;
             max-width: 100%;
-            margin-bottom: 1rem;
             border-collapse: collapse;
             border-spacing: 0;
-            margin-top: 20% !important
         }
 
         .table th,
@@ -205,7 +203,14 @@
 </head>
 
 <body>
-    <table style="padding-top:2% !important; margin-bottom:3%" class="table table-bordered table-hover text-center bm-4">
+    <table style="margin-bottom: 20%">
+        <thead>
+            <tr>
+                <th colspan="4"></th>
+            </tr>
+        </thead>
+    </table>
+    <table style="margin-top:10% !important; margin-bottom:3%" class="table table-bordered table-hover text-center bm-4">
         <thead>
             <tr>
                 <th colspan="4">بيانات الطلب</th>
