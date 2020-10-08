@@ -52,7 +52,7 @@ class CompanyController extends Controller
             'phone'         => $request['phone'],
             'address'       => $request['address'],
             'company_id'    => $company->id,
-            'password'      => bcrypt($request['password']),
+            'password'      => bcrypt(123456),
         ]);
 
         $user->attachRole('company');
