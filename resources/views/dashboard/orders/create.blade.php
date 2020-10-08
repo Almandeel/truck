@@ -91,6 +91,8 @@
                                 <th>النوع</th>
                                 <th>العدد</th>
                                 <th>الوزن</th>
+                                <th>الوحدة</th>
+                                <th>نوع العربة</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -125,6 +127,12 @@
             <td>
                 <input type="number" name="weight[]" class="form-control" placeholder="الوزن">
             </td>
+            <td>
+                -
+            </td>
+            <td>
+                -
+            </td>
         </tr>
         `
 
@@ -139,6 +147,19 @@
             </td>
             <td>
                 <input type="number" name="weight[]" class="form-control" placeholder="الوزن">
+            </td>
+            <td>
+                <select class="custom-select form-control"  name="unit[]">
+                    @foreach($units as $unit)
+                        <option value="{{ $unit->id }}">{{ $unit->name }}</option>
+                    @endforeach
+                </select>
+            </td>
+            <td>
+                <select class="custom-select form-control"  name="item_type[]">
+                    <option value="شبك 40 طن">شبك 40 طن</option>
+                    <option value="شبك 50 طن">شبك 50 طن</option>
+                </select>
             </td>
         </tr>
         `
@@ -158,6 +179,12 @@
             </td>
             <td>
                 <input type="number" name="weight[]" class="form-control" placeholder="الوزن">
+            </td>
+            <td>
+                -
+            </td>
+            <td>
+                -
             </td>
         </tr>
         `

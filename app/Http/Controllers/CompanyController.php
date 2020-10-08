@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Company;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 
 class CompanyController extends Controller
@@ -38,12 +40,23 @@ class CompanyController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'      => 'required | string',
-            'phone'     => 'required | string',
+            'name'      => 'required | string | unique:users',
+            'phone'     => 'required | string | unique:users',
             'address'   => 'required | string',
         ]);
 
         $company = Company::create($request->all());
+
+        $user = User::create([
+            'name'          => $request['name'],
+            'phone'         => $request['phone'],
+            'address'       => $request['address'],
+            'company_id'    => $company->id,
+            'password'      => bcrypt($request['password']),
+        ]);
+
+        $user->attachRole('company');
+
 
         return back()->with('success', 'تمت العملية بنجاح');
     }
@@ -80,9 +93,9 @@ class CompanyController extends Controller
     public function update(Request $request, Company $company)
     {
         $request->validate([
-            'name'      => 'required | string',
-            'phone'     => 'required | string',
-            'address'   => 'required | string',
+            'name'     => ['required', 'string',  Rule::unique('companies', 'name')->ignore($company->id)],
+            'phone'    => ['required', 'string',  Rule::unique('companies', 'phone')->ignore($company->id)],
+            'address'  => 'required | string',
         ]);
 
         $company->update($request->all());

@@ -122,7 +122,7 @@ class AuthController extends Controller
             'name'          => $user['name'],
             'phone'         => $user['phone'],
             'company_id'    => $user['company_id'],
-            'expires_in'    => auth('api')->factory()->getTTL() * 60 * 24 * 7
+            'expires_in'    => auth('api')->factory()->getTTL() * 60 * 24 * 365
         ]);
     }
 }
