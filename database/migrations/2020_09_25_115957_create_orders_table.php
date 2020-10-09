@@ -31,6 +31,9 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('company_id')->nullable();
             $table->unsignedBigInteger('user_add_id')->nullable();
             $table->unsignedBigInteger('user_accepted_id')->nullable();
+            $table->double('amount')->nullable();
+            $table->integer('ratio')->nullable();
+            $table->double('net')->nullable();
 
             $table->foreign('company_id')->references('id')->on('companies')
             ->onUpdate('no action')->onDelete('no action');
