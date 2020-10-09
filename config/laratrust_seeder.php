@@ -12,6 +12,8 @@ return [
             'vehicles'              => 'c,r,u,d',
             'orders'                => 'c,r,u,d,p',
             'companies'             => 'c,r,u,d',
+            'accountings'           => 'c,r,u,d,p',
+            'pricings'              => 'c,r,u,d',
             'dashboard'             => 'r',
         ],
 
@@ -38,6 +40,8 @@ return [
             'vehicles'              => 'c,r,u,d',
             'orders'                => 'c,r,u,d',
             'companies'             => 'c,r,u,d',
+            'accountings'           => 'c,r,u,d,p',
+            'pricings'              => 'c,r,u,d',
             'dashboard'             => 'r',
         ],
     ],

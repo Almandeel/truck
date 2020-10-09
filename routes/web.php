@@ -14,6 +14,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('vehicles', 'VehicleController');
     Route::resource('orders', 'OrderController');
     Route::resource('companies', 'CompanyController');
+    Route::resource('pricings', 'PricingController');
 
     Route::get('reports/order/{id}', 'ReportController@order')->name('reports.order');
     Route::get('json/orders', 'OrderController@orders');

@@ -14,7 +14,8 @@ class PricingController extends Controller
      */
     public function index()
     {
-        //
+        $pricings = Pricing::all();
+        return view('dashboard.pricings.index', compact('pricings'));
     }
 
     /**
@@ -35,7 +36,14 @@ class PricingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        request()->validate([
+            'name'      => 'required | string',
+            'amount'    => 'required | integer',
+        ]);
+
+        $pricing = Pricing::create($request->all());
+
+        return back()->with('success', 'تمت العملية بنجاح');
     }
 
     /**
@@ -69,7 +77,14 @@ class PricingController extends Controller
      */
     public function update(Request $request, Pricing $pricing)
     {
-        //
+        request()->validate([
+            'name'      => 'required | string',
+            'amount'    => 'required | integer',
+        ]);
+
+        $pricing->update($request->all());
+
+        return back()->with('success', 'تمت العملية بنجاح');
     }
 
     /**

@@ -97,6 +97,16 @@
                             </a>
                         </li>
                     @endpermission
+                    @permission('pricings-read')
+                        <li class="nav-item">
+                            <a href="{{ route('pricings.index') }}" class="nav-link {{ (request()->segment(1) == 'pricings') ? 'active' : '' }}">
+                                <i class="nav-icon fab fa-dollar"></i>
+                                <p>
+                                    الاسعار
+                                </p>
+                            </a>
+                        </li>
+                    @endpermission
                     @permission('users-read')
                         <li class="nav-item">
                             <a href="{{ route('users.index') }}" class="nav-link {{ (request()->segment(1) == 'users') ? 'active' : '' }}">

@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Unit;
 use App\Zone;
 use App\Order;
+use App\Entery;
+use App\Account;
+use App\Pricing;
 use App\Vehicle;
 use App\OrderItem;
 use App\OrderTender;
@@ -181,10 +184,26 @@ class OrderController extends Controller
         }
 
         if($request->type == 'received'){
+            $pricing = Pricing::first();
+            $net = ($order->tenders->where('company_id', $request->company_id)->first()->price * $pricing->amount) / 100;
             $order->update([
                 'status'        => Order::ORDER_IN_SHIPPING,
                 'company_id'    => $request->company_id,
                 'received_at'   => date('Y-m-d H:I'),
+            ]);
+
+            $order->update([
+                'amount' => $order->tenders->where('company_id', $request->company_id)->first()->price,
+                'ratio'  => $pricing->amount,
+                'net'    => $net,
+            ]);
+
+            $entries = Entery::create([
+                'amount'    => $net,
+                'from_id'   => Account::ACCOUNT_SAFE,
+                'to_id'     => $order->company->account_id,
+                'details'   => 'عمولة من الطلب رقم ' . $order->id,
+                'type'      => Entery::TYPE_INCOME,
             ]);
             
             return back()->with('success', 'تمت العملية بنجاح');
