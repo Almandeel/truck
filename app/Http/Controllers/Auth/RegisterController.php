@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\Market;
+use App\Account;
 use App\Company;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -97,10 +98,16 @@ class RegisterController extends Controller
         ]);
 
         if(request()->type == 'company') {
+
+            $account = Account::create([
+                'name' => 'company'
+            ]);
+
             $company = Company::create([
                 'name' => $data['name'],
                 'phone' => $data['phone'],
                 'address' => $data['address'],
+                'account_id' => $account->id,
             ]);
 
             $user->update([

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\User;
+use App\Account;
 use App\Company;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -32,11 +33,18 @@ class AuthController extends Controller
         ]);
 
         if($request->type == 'company') {
+
+            $account = Account::create([
+                'name' => 'company'
+            ]);
+
             $company = Company::create([
                 'name' => $request['name'],
                 'phone' => $request['phone'],
                 'address' => $request['address'],
+                'account_id' => $account->id,
             ]);
+
             $user->update([
                 'company_id' => $company->id,
                 'status'     => 0,

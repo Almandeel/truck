@@ -18,7 +18,13 @@ class CreateCompaniesTable extends Migration
             $table->string('name');
             $table->string('phone');
             $table->string('address');
+            $table->unsignedBigInteger('account_id');
             $table->timestamps();
+
+            $table->foreign('account_id')
+            ->references('id')->on('accounts')
+            ->onDelete('no action')
+            ->onUpdate('no action');
         });
     }
 
