@@ -35,6 +35,9 @@
                             <td>{{ $company->phone }}</td>
                             <td>{{ $company->address }}</td>
                             <td>
+                                @permission('enteries-read')
+                                    <a href="{{ route('companies.show', $company->id) }}" class="btn btn-primary btn-xs"><i class="fa fa-list"></i> كشف حساب</a>
+                                @endpermission
                                 @permission('companies-update')
                                     <button class="btn btn-warning btn-xs company update " data-toggle="modal" data-target="#CompanyModal" data-action="{{ route('companies.update', $company->id) }}" data-name="{{ $company->name }}" data-phone="{{ $company->phone }}" data-address="{{ $company->address }}"><i class="fa fa-edit"></i> تعديل </button>
                                 @endpermission

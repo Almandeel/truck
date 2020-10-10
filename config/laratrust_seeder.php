@@ -14,6 +14,8 @@ return [
             'companies'             => 'c,r,u,d',
             'accountings'           => 'c,r,u,d,p',
             'pricings'              => 'c,r,u,d',
+            'enteries'              => 'c,r,u,d,p',
+            'payments'              => 'c,r,u,d,p',
             'dashboard'             => 'r',
         ],
 
@@ -42,6 +44,8 @@ return [
             'companies'             => 'c,r,u,d',
             'accountings'           => 'c,r,u,d,p',
             'pricings'              => 'c,r,u,d',
+            'enteries'              => 'c,r,u,d,p',
+            'payments'              => 'c,r,u,d,p',
             'dashboard'             => 'r',
         ],
     ],

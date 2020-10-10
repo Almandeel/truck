@@ -121,7 +121,7 @@ class OrderController extends Controller
             ]);
         }
 
-        broadcast(new AddOrder($order));
+        // broadcast(new AddOrder($order));
 
         return redirect()->route('orders.show', $order->id)->with('success', 'تمت العملية بنجاح');
     }
@@ -200,8 +200,8 @@ class OrderController extends Controller
 
             $entries = Entery::create([
                 'amount'    => $net,
-                'from_id'   => Account::ACCOUNT_SAFE,
-                'to_id'     => $order->company->account_id,
+                'from_id'   => $order->company->account_id,
+                'to_id'     => Account::ACCOUNT_SAFE,
                 'details'   => 'عمولة من الطلب رقم ' . $order->id,
                 'type'      => Entery::TYPE_INCOME,
             ]);

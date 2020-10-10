@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Entery;
 use App\Company;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -69,7 +70,10 @@ class CompanyController extends Controller
      */
     public function show(Company $company)
     {
-        //
+        $enteries   = Entery::where('from_id', $company->account_id)->Orwhere('to_id', $company->account_id)->get();
+        $debt       = Entery::debt($company->account_id);
+        $cridet     = Entery::cridet($company->account_id);
+        return view('dashboard.companies.show', compact('enteries', 'company', 'debt', 'cridet'));
     }
 
     /**

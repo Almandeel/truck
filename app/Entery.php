@@ -27,6 +27,16 @@ class Entery extends Model
         return $this->belongsTo('App\User');
     }
 
+    public static function debt($account) {
+        $debt = self::where('from_id', $account)->sum('amount');
+        return $debt;
+    }
+
+    public static function cridet($account) {
+        $cridet = self::where('to_id', $account)->sum('amount');
+        return $cridet;
+    }
+
     // public static function newPayment($data){
     //     return self::newEntry($data, ENTRY::TYPE_PAYMENT);
     // }
