@@ -16,7 +16,7 @@ class CompanyController extends Controller
     public function orderStatus(Request $request) {
         if(auth('api')->user()->company_id) {
             if($request->type == 'new') {
-                $orders = Order::where('status', Order::ORDER_ACCEPTED)->get()->map(function($order) {
+                $orders = Order::where('status', Order::ORDER_ACCEPTED)->orderBy('created_at', 'DESC')->get()->map(function($order) {
                     return [
                         'id'            => $order->id,
                         'order_type'    => $order->type,
@@ -27,7 +27,7 @@ class CompanyController extends Controller
             }
 
             if($request->type == 'done') {
-                $orders = Order::where('company_id', auth('api')->user()->company_id)->where('status', Order::ORDER_DONE)->get()->map(function($order) {
+                $orders = Order::where('company_id', auth('api')->user()->company_id)->where('status', Order::ORDER_DONE)->orderBy('created_at', 'DESC')->get()->map(function($order) {
                     return [
                         'id'            => $order->id,
                         'order_type'    => $order->type,
@@ -38,7 +38,7 @@ class CompanyController extends Controller
             }
 
             if($request->type == 'shipping') {
-                $orders = Order::where('company_id', auth('api')->user()->company_id)->where('status', Order::ORDER_IN_SHIPPING)->get()->map(function($order) {
+                $orders = Order::where('company_id', auth('api')->user()->company_id)->where('status', Order::ORDER_IN_SHIPPING)->orderBy('created_at', 'DESC')->get()->map(function($order) {
                     return [
                         'id'            => $order->id,
                         'order_type'    => $order->type,
@@ -49,7 +49,7 @@ class CompanyController extends Controller
             }
 
             if($request->type == 'road') {
-                $orders = Order::where('company_id', auth('api')->user()->company_id)->where('status', Order::ORDER_IN_ROAD)->get()->map(function($order) {
+                $orders = Order::where('company_id', auth('api')->user()->company_id)->where('status', Order::ORDER_IN_ROAD)->orderBy('created_at', 'DESC')->get()->map(function($order) {
                     return [
                         'id'            => $order->id,
                         'order_type'    => $order->type,

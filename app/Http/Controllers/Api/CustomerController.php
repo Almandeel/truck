@@ -18,7 +18,7 @@ class CustomerController extends Controller
     }
 
     public function orders() {
-        $orders = Order::with('items')->where('user_add_id', auth('api')->user()->id)->get()->map(function($order) {
+        $orders = Order::with('items')->where('user_add_id', auth('api')->user()->id)->orderBy('created_at', 'DESC')->get()->map(function($order) {
             return [
                 'id'            => $order->id,
                 'from'          => $order->from,
