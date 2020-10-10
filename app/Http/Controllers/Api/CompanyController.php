@@ -96,15 +96,16 @@ class CompanyController extends Controller
             $order->update([
                 'status' => Order::ORDER_IN_ROAD
             ]);
+            return response()->json(['message' => 'Success', 200]);
         }
 
         if($order->status == Order::ORDER_IN_ROAD) {
             $order->update([
                 'status' => Order::ORDER_DONE
             ]);
+            return response()->json(['message' => 'Success', 200]);
         }
 
-        return response()->json(['message' => 'Success', 200]);
     }
 
 
