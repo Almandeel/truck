@@ -12,8 +12,6 @@ class AccountSeeder extends Seeder
      */
     public function run()
     {
-        $this->command->info('... Creating Accounts ...');
         $safeAccount = Account::firstOrCreate(['name' => 'safe']);
-        $this->command->info('Creating Safe Account...');
     }
 }
