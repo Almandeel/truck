@@ -31,7 +31,7 @@ class NewOrderNotification extends Notification
     public function toPushNotification($notifiable)
     {
         return PusherMessage::create()
-            ->android()
+            ->Android()
             ->badge(1)
             ->sound('success')
             ->body("Your account was approved!");

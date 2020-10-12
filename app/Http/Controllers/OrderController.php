@@ -10,12 +10,12 @@ use App\Entery;
 use App\Account;
 use App\Pricing;
 use App\Vehicle;
+use Notification;
 use App\OrderItem;
 use App\OrderTender;
 use App\Events\AddOrder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Notifications\Notification;
 use App\Notifications\NewOrderNotification;
 
 class OrderController extends Controller
