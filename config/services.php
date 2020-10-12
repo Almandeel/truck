@@ -37,4 +37,9 @@ return [
     'telegram-bot-api' => [
         'token' => env('TELEGRAM_BOT_TOKEN')
     ],
+
+    'pusher' => [
+        'beams_instance_id' => '4621b145-3a67-4e06-b4c0-3425796853c2',
+        'beams_secret_key' => '286D08C763E5B736FD6EDC570FA1544F0828FFE2E1A01E0E0538658B22A3C55B',
+    ],
 ];

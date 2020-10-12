@@ -3,17 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Unit;
+use App\User;
 use App\Zone;
 use App\Order;
 use App\Entery;
 use App\Account;
 use App\Pricing;
 use App\Vehicle;
+use Notification;
 use App\OrderItem;
 use App\OrderTender;
 use App\Events\AddOrder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Notifications\NewOrderNotification;
 
 class OrderController extends Controller
 {
@@ -171,6 +174,10 @@ class OrderController extends Controller
                 'user_accepted_id' => auth()->user()->id,
                 'accepted_at' => date('Y-m-d H:I'),
             ]);
+
+            $companies = User::where('company_id', '!=', null)->get();
+            Notification::send($companies, new NewOrderNotification($order));
+
             return back()->with('success', 'تمت العملية بنجاح');
         }
 

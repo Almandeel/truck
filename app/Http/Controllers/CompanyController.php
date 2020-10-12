@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Entery;
+use App\Account;
 use App\Company;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -46,7 +47,13 @@ class CompanyController extends Controller
             'address'   => 'required | string',
         ]);
 
-        $company = Company::create($request->all());
+        $account = Account::create([
+            'name' => 'Company'
+        ]);
+
+        $request_data = $request->all();
+        $request_data['account_id'] = $account->id;
+        $company = Company::create($request_data);
 
         $user = User::create([
             'name'          => $request['name'],
