@@ -6,7 +6,6 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-
 use NotificationChannels\PusherPushNotifications\PusherChannel;
 use NotificationChannels\PusherPushNotifications\PusherMessage;
 
@@ -24,12 +23,12 @@ class NewOrderNotification extends Notification
         //
     }
 
-    public function via($notifiable)
+    public function via()
     {
         return [PusherChannel::class];
     }
 
-    public function toPushNotification($notifiable)
+    public function toPushNotification()
     {
         return PusherMessage::create()
             ->android()
