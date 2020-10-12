@@ -11,7 +11,7 @@ use NotificationChannels\PusherPushNotifications\PusherMessage;
 
 class NewOrderNotification extends Notification
 {
-    use Queueable;
+    // use Queueable;
 
     /**
      * Create a new notification instance.
@@ -31,7 +31,7 @@ class NewOrderNotification extends Notification
     public function toPushNotification($notifiable)
     {
         return PusherMessage::create()
-            ->Android()
+            ->android()
             ->badge(1)
             ->sound('success')
             ->body("Your account was approved!");
