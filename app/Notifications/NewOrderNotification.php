@@ -23,12 +23,12 @@ class NewOrderNotification extends Notification
         //
     }
 
-    public function via()
+    public function via($notifiable)
     {
         return [PusherChannel::class];
     }
 
-    public function toPushNotification()
+    public function toPushNotification($notifiable)
     {
         return PusherMessage::create()
             ->android()
