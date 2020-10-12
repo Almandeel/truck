@@ -11,7 +11,7 @@ use NotificationChannels\PusherPushNotifications\PusherMessage;
 
 class NewOrderNotification extends Notification
 {
-    // use Queueable;
+    use Queueable;
 
     /**
      * Create a new notification instance.

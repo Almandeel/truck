@@ -169,11 +169,11 @@ class OrderController extends Controller
     public function update(Request $request, Order $order)
     {
         if($request->type == 'accepted') {
-            // $order->update([
-            //     'status' => Order::ORDER_ACCEPTED,
-            //     'user_accepted_id' => auth()->user()->id,
-            //     'accepted_at' => date('Y-m-d H:I'),
-            // ]);
+            $order->update([
+                'status' => Order::ORDER_ACCEPTED,
+                'user_accepted_id' => auth()->user()->id,
+                'accepted_at' => date('Y-m-d H:I'),
+            ]);
 
             $companies = User::where('company_id', '!=', null)->get();
             Notification::send($companies, new NewOrderNotification($order));
