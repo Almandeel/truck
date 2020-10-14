@@ -17,8 +17,7 @@ use App\Events\AddOrder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Notifications\NewOrderNotification;
-use Kawankoding\Fcm\Fcm;
-
+use Kawankoding\Fcm\FcmFacade;
 class OrderController extends Controller
 {
     /**
