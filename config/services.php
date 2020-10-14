@@ -38,10 +38,10 @@ return [
         'token' => env('TELEGRAM_BOT_TOKEN')
     ],
 
-    'pusher' => [
-        'beams_instance_id' => '4621b145-3a67-4e06-b4c0-3425796853c2',
-        'beams_secret_key' => '286D08C763E5B736FD6EDC570FA1544F0828FFE2E1A01E0E0538658B22A3C55B',
-    ],
+    // 'pusher' => [
+    //     'beams_instance_id' => '4621b145-3a67-4e06-b4c0-3425796853c2',
+    //     'beams_secret_key' => '286D08C763E5B736FD6EDC570FA1544F0828FFE2E1A01E0E0538658B22A3C55B',
+    // ],
 
     'fcm' => [
         'key' => 'AAAATNsGQiM:APA91bHuPkL02gD7MfoJhfKnF-xH2TJVH3RCp3GDGVXbP-QLWhaotC_V0o_rIaiqJGAVXEdh1da2VZ-XAowsq740NZ8Lgg4wKBgVg27IX9nBb4n-5SpKvtQpVwBV9h3VOaqz9C-FVD_8'

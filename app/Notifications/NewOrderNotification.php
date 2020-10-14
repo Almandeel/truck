@@ -3,10 +3,11 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
+use Benwilkins\FCM\FcmChannel;
+use Benwilkins\FCM\FcmMessage;
+use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
-use Benwilkins\FCM\FcmMessage;
 
 
 class NewOrderNotification extends Notification
@@ -25,7 +26,7 @@ class NewOrderNotification extends Notification
 
     public function via($notifiable)
     {
-        return ['fcm'];
+        return [FcmChannel::class];
     }
 
     public function toFcm($notifiable) 
