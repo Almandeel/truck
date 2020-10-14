@@ -4,8 +4,66 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a1b65514508cc2c093c138823952df7e",
+    "content-hash": "bc42e37d04a65b5e9d68d900703134f6",
     "packages": [
+        {
+            "name": "benwilkins/laravel-fcm-notification",
+            "version": "v4.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/benwilkins/laravel-fcm-notification.git",
+                "reference": "999bcd41bb1a194515c5e3877706cfbed17f1739"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/benwilkins/laravel-fcm-notification/zipball/999bcd41bb1a194515c5e3877706cfbed17f1739",
+                "reference": "999bcd41bb1a194515c5e3877706cfbed17f1739",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.2|^7.0",
+                "illuminate/config": "~5.3|^6.0|^7.0",
+                "illuminate/notifications": "~5.3|^6.0|^7.0",
+                "illuminate/queue": "~5.3|^6.0|^7.0",
+                "illuminate/support": "~5.3|^6.0|^7.0",
+                "php": ">=5.6.4"
+            },
+            "require-dev": {
+                "mockery/mockery": "~1.0",
+                "phpunit/phpunit": "~6.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Benwilkins\\FCM\\FcmNotificationServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Benwilkins\\FCM\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ben Wilkins",
+                    "email": "bentwilkins@gmail.com"
+                }
+            ],
+            "description": "Laravel FCM (Firebase Cloud Messaging) Notification Channel",
+            "keywords": [
+                "FCM",
+                "firebase",
+                "laravel",
+                "notifications"
+            ],
+            "time": "2020-06-29T14:31:01+00:00"
+        },
         {
             "name": "brick/math",
             "version": "0.9.1",

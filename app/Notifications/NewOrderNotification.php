@@ -6,8 +6,8 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use NotificationChannels\PusherPushNotifications\PusherChannel;
-use NotificationChannels\PusherPushNotifications\PusherMessage;
+use Benwilkins\FCM\FcmMessage;
+
 
 class NewOrderNotification extends Notification
 {
@@ -25,15 +25,22 @@ class NewOrderNotification extends Notification
 
     public function via($notifiable)
     {
-        return [PusherChannel::class];
+        return ['fcm'];
     }
 
-    public function toPushNotification($notifiable)
+    public function toFcm($notifiable) 
     {
-        return PusherMessage::create()
-            ->android()
-            ->badge(1)
-            ->sound('success')
-            ->body("Your account was approved!");
+        $message = new FcmMessage();
+        $message->content([
+            'title'        => 'new order', 
+            'body'         => 'test for new order', 
+            'sound'        => '', // Optional 
+            'icon'         => '', // Optional
+            'click_action' => '' // Optional
+        ])->data([
+            'param1' => 'baz' // Optional
+        ])->priority(FcmMessage::PRIORITY_HIGH); // Optional - Default is 'normal'.
+        
+        return $message;
     }
 }
