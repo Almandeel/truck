@@ -184,7 +184,7 @@ class OrderController extends Controller
             ];
             
             fcm() 
-                ->to($recipients)
+                ->to($companies)
                 ->priority('high')
                 ->timeToLive(0)
                 ->data([

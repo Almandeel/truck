@@ -44,6 +44,6 @@ return [
     // ],
 
     'fcm' => [
-        'server_key' => 'AAAATNsGQiM:APA91bHuPkL02gD7MfoJhfKnF-xH2TJVH3RCp3GDGVXbP-QLWhaotC_V0o_rIaiqJGAVXEdh1da2VZ-XAowsq740NZ8Lgg4wKBgVg27IX9nBb4n-5SpKvtQpVwBV9h3VOaqz9C-FVD_8'
+        'server_key' => env('FCM_SERVER_KEY', ''),
     ]
 ];
