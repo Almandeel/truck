@@ -176,7 +176,21 @@ class OrderController extends Controller
             // ]);
 
             $companies = User::where('company_id', '!=', null)->get();
-            Notification::send($companies, new NewOrderNotification($order));
+            //Notification::send($companies, new NewOrderNotification($order));
+            $recipients = [
+                'clKMv.......',
+                'GxQQW.......',
+            ];
+            
+            fcm() 
+                ->to($recipients)
+                ->priority('high')
+                ->timeToLive(0)
+                ->data([
+                    'title' => 'Test FCM',
+                    'body' => 'This is a test of FCM',
+                ])
+                ->send();
 
             return back()->with('success', 'تمت العملية بنجاح');
         }
