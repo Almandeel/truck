@@ -170,27 +170,25 @@ class OrderController extends Controller
     public function update(Request $request, Order $order)
     {
         if($request->type == 'accepted') {
-            // $order->update([
-            //     'status' => Order::ORDER_ACCEPTED,
-            //     'user_accepted_id' => auth()->user()->id,
-            //     'accepted_at' => date('Y-m-d H:I'),
-            // ]);
+            $order->update([
+                'status' => Order::ORDER_ACCEPTED,
+                'user_accepted_id' => auth()->user()->id,
+                'accepted_at' => date('Y-m-d H:I'),
+            ]);
 
-            //$companies = User::where('company_id', '!=', null)->get();
-            //Notification::send($companies, new NewOrderNotification($order));
             $recipients = [
                 'fM1Jg-5rR6-eVybV1X8Qbn:APA91bG2xVV6Rxv8c_vheO6tWvju8GS_KvcEWEjWnaIARAmEbYYeLJeancAzhXGmzd6RYldJg50_1ZYL0KIzsoLhx_skHKRa3lfkFgpCu63YexIo7L1oPimXMtpm4mkmf-Vl_db3N7Nq'
             ];
-            
-            dd(            fcm() 
+
+            fcm() 
             ->to($recipients)
             ->priority('high')
             ->timeToLive(0)
-            ->data([
+            ->notification([
                 'title' => 'Test FCM',
                 'body' => 'This is a test of FCM',
             ])
-            ->send());
+            ->send();
 
             return back()->with('success', 'تمت العملية بنجاح');
         }

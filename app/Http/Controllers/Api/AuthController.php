@@ -35,6 +35,7 @@ class AuthController extends Controller
             'address'   => $request['address'],
             'code'      => $request['code'],
             'password'  => Hash::make($request['password']),
+            'fcm_token' => $request['fcm_token'],
         ]);
 
         if($request->type == 'company') {
