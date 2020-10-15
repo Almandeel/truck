@@ -43,7 +43,7 @@ return [
     //     'beams_secret_key' => '286D08C763E5B736FD6EDC570FA1544F0828FFE2E1A01E0E0538658B22A3C55B',
     // ],
 
-    'fcm' => [
-        'server_key' => env('FCM_SERVER_KEY', ''),
-    ]
+    // 'fcm' => [
+    //     'server_key' => env('FCM_SERVER_KEY', ''),
+    // ]
 ];

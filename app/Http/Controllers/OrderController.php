@@ -176,7 +176,7 @@ class OrderController extends Controller
             //     'accepted_at' => date('Y-m-d H:I'),
             // ]);
 
-            $companies = User::where('company_id', '!=', null)->get();
+            //$companies = User::where('company_id', '!=', null)->get();
             //Notification::send($companies, new NewOrderNotification($order));
             $recipients = [
                 'fM1Jg-5rR6-eVybV1X8Qbn:APA91bG2xVV6Rxv8c_vheO6tWvju8GS_KvcEWEjWnaIARAmEbYYeLJeancAzhXGmzd6RYldJg50_1ZYL0KIzsoLhx_skHKRa3lfkFgpCu63YexIo7L1oPimXMtpm4mkmf-Vl_db3N7Nq'
