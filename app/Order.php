@@ -41,6 +41,10 @@ class Order extends Model
         return $this->hasMany('App\OrderTender');
     }
 
+    public function addedOrder() {
+        return $this->belongsTo('App\User', 'user_add_id');
+    }
+
 
 
 }

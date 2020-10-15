@@ -176,17 +176,15 @@ class OrderController extends Controller
                 'accepted_at' => date('Y-m-d H:I'),
             ]);
 
-            $recipients = [
-                'fM1Jg-5rR6-eVybV1X8Qbn:APA91bG2xVV6Rxv8c_vheO6tWvju8GS_KvcEWEjWnaIARAmEbYYeLJeancAzhXGmzd6RYldJg50_1ZYL0KIzsoLhx_skHKRa3lfkFgpCu63YexIo7L1oPimXMtpm4mkmf-Vl_db3N7Nq'
-            ];
+            $recipients = User::where('company_id', '!=', null)->pluck('fcm_token')->toArray();
 
             fcm() 
             ->to($recipients)
             ->priority('high')
             ->timeToLive(0)
             ->notification([
-                'title' => 'Test FCM',
-                'body' => 'This is a test of FCM',
+                'title' => 'طلب جديد',
+                'body' => 'تم اضافة طلب جديد',
             ])
             ->send();
 
@@ -200,6 +198,19 @@ class OrderController extends Controller
                 'price'         => $request->price,
                 'duration'      => $request->duration,
             ]);
+
+            $recipients = $order->addedOrder->pluck('fcm_token')->toArray();
+
+            fcm()
+            ->to($recipients)
+            ->priority('high')
+            ->timeToLive(0)
+            ->notification([
+                'title' => 'لديك عرض جديد',
+                'body' => 'تم اضافة عرض جديد في الطلب رقم ' . $order->id,
+            ])
+            ->send();
+
             return back()->with('success', 'تمت العملية بنجاح');
         }
 
@@ -225,6 +236,18 @@ class OrderController extends Controller
                 'details'   => 'عمولة من الطلب رقم ' . $order->id,
                 'type'      => Entery::TYPE_INCOME,
             ]);
+
+            $recipients = $order->company->user->pluck('fcm_token')->toArray();
+
+            fcm() 
+            ->to($recipients)
+            ->priority('high')
+            ->timeToLive(0)
+            ->notification([
+                'title' => 'تمت الموافقة على عرضك',
+                'body' => 'تمت الموافقة على عرضك في الطلب رقم ' . $order->id,
+            ])
+            ->send();
             
             return back()->with('success', 'تمت العملية بنجاح');
         }
