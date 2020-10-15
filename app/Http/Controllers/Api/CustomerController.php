@@ -104,6 +104,18 @@ class CustomerController extends Controller
             'received_at'   => date('Y-m-d H:I'),
         ]);
 
+        $recipients = $order->company->user->pluck('fcm_token')->toArray();
+
+        fcm() 
+        ->to($recipients)
+        ->priority('high')
+        ->timeToLive(0)
+        ->notification([
+            'title' => 'تمت الموافقة على عرضك',
+            'body' => 'تمت الموافقة على عرضك في الطلب رقم ' . $order->id,
+        ])
+        ->send();
+
         return response()->json(['message' => 'success'], 200);
     }
 
