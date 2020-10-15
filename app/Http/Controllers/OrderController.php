@@ -182,15 +182,15 @@ class OrderController extends Controller
                 'fM1Jg-5rR6-eVybV1X8Qbn:APA91bG2xVV6Rxv8c_vheO6tWvju8GS_KvcEWEjWnaIARAmEbYYeLJeancAzhXGmzd6RYldJg50_1ZYL0KIzsoLhx_skHKRa3lfkFgpCu63YexIo7L1oPimXMtpm4mkmf-Vl_db3N7Nq'
             ];
             
-            fcm() 
-                ->to($recipients)
-                ->priority('high')
-                ->timeToLive(0)
-                ->data([
-                    'title' => 'Test FCM',
-                    'body' => 'This is a test of FCM',
-                ])
-                ->send();
+            dd(            fcm() 
+            ->to($recipients)
+            ->priority('high')
+            ->timeToLive(0)
+            ->data([
+                'title' => 'Test FCM',
+                'body' => 'This is a test of FCM',
+            ])
+            ->send());
 
             return back()->with('success', 'تمت العملية بنجاح');
         }
