@@ -79,12 +79,25 @@ class CompanyController extends Controller
     }
 
     public function updateOrder(Request $request) {
+        $order = Order::find($request->order_id);
         $tender = OrderTender::create([
             'order_id'      => $request->order_id,
             'company_id'    => auth('api')->user()->company_id,
             'price'         => $request->price,
             'duration'      => $request->duration,
         ]);
+
+        $recipients = $order->addedOrder->pluck('fcm_token')->toArray();
+
+        fcm()
+        ->to($recipients)
+        ->priority('high')
+        ->timeToLive(0)
+        ->notification([
+            'title' => 'لديك عرض جديد',
+            'body' => 'تم اضافة عرض جديد في الطلب رقم ' . $order->id,
+        ])
+        ->send();
 
         return response()->json(['message' => 'success'], 200);
     }
