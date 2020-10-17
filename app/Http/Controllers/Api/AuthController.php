@@ -67,6 +67,10 @@ class AuthController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
+        if (auth('api')->user()->status == 0) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
         return $this->respondWithToken($token, $user);
     }
 
@@ -85,6 +89,10 @@ class AuthController extends Controller
 
         $user  = auth('api')->user();
 
+        if ($user->status == 0) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+        
         return $this->respondWithToken($token, $user);
     }
 
