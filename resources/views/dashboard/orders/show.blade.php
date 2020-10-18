@@ -118,14 +118,20 @@
                             </tr>
                         @endif
                     @endif
-                    <tr>
-                        <th>تاريخ الشحن</th>
-                        <td>{{ $order->shipping_date }}</td>
-                        @role(['superadmin', 'services'])
-                        <th></th>
-                        <td>{{ $order->shipping_date }}</td>
-                        @endrole
+                    <tr >
+                        <th colspan="2">تاريخ الشحن</th>
+                        <td colspan="2">{{ $order->shipping_date }}</td>
                     </tr>
+                    
+                    @permission('pricings-read')
+                        <tr>
+                            <th>سعر التوصيل</th>
+                            <td>{{ $order->amount }}</td>
+                            <th>العمولة</th>
+                            <td>{{ $order->net }}</td>
+                        </tr>
+                    @endpermission
+                    
                 </tbody>
             </table>
 
