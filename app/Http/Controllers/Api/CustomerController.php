@@ -38,9 +38,6 @@ class CustomerController extends Controller
     }
 
     public function order(Request $request) {
-        $request->validate([
-            
-        ]);
 
         $validator = Validator::make($request->all(), [
             'name'              => 'required | string | max:45',  
@@ -109,6 +106,9 @@ class CustomerController extends Controller
             'status'        => Order::ORDER_IN_SHIPPING,
             'company_id'    => $request->company_id,
             'received_at'   => date('Y-m-d H:I'),
+            'amount' => $order->tenders->where('company_id', $request->company_id)->first()->price,
+            'ratio'  => $pricing->amount,
+            'net'    => $net,
         ]);
 
         $entries = Entery::create([
