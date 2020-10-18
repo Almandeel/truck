@@ -51,6 +51,7 @@ class PaymentController extends Controller
             'to_id'     => $company_account,
             'details'   => 'دفعة مسبقة',
             'type'      => Entery::TYPE_PAYMENT,
+            'user_id'   => auth()->user()->id
         ]);
 
         $payment = Payment::create([
