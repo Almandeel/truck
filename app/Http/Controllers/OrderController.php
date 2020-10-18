@@ -176,15 +176,27 @@ class OrderController extends Controller
                 'accepted_at' => date('Y-m-d H:I'),
             ]);
 
-            $recipients = User::where('company_id', '!=', null)->pluck('fcm_token')->toArray();
+            $recipient_companies = User::where('company_id', '!=', null)->pluck('fcm_token')->toArray();
 
             fcm() 
-            ->to($recipients)
+            ->to($recipient_companies)
             ->priority('high')
             ->timeToLive(0)
             ->notification([
                 'title' => 'طلب جديد',
                 'body' => 'تم اضافة طلب جديد',
+            ])
+            ->send();
+
+            $recipient_user = User::where('id', $order->user_add_id)->pluck('fcm_token')->toArray();
+
+            fcm() 
+            ->to($recipient_user)
+            ->priority('high')
+            ->timeToLive(0)
+            ->notification([
+                'title' => 'تمت الموافقة على طلبك',
+                'body' => 'تمت الموافقة على طلبك رقم ' . $order->id,
             ])
             ->send();
 
