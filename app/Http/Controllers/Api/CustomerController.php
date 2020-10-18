@@ -105,18 +105,18 @@ class CustomerController extends Controller
 
         $net = ($order->tenders->where('company_id', $request->company_id)->first()->price * $pricing->amount) / 100;
 
+        $order->update([
+            'status'        => Order::ORDER_IN_SHIPPING,
+            'company_id'    => $request->company_id,
+            'received_at'   => date('Y-m-d H:I'),
+        ]);
+
         $entries = Entery::create([
             'amount'    => $net,
             'from_id'   => $order->company->account_id,
             'to_id'     => Account::ACCOUNT_SAFE,
             'details'   => 'عمولة من الطلب رقم ' . $order->id,
             'type'      => Entery::TYPE_INCOME,
-        ]);
-
-        $order->update([
-            'status'        => Order::ORDER_IN_SHIPPING,
-            'company_id'    => $request->company_id,
-            'received_at'   => date('Y-m-d H:I'),
         ]);
 
         $recipients = $order->company->user->pluck('fcm_token')->toArray();

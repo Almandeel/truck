@@ -121,6 +121,10 @@
                     <tr>
                         <th>تاريخ الشحن</th>
                         <td>{{ $order->shipping_date }}</td>
+                        @role(['superadmin', 'services'])
+                        <th></th>
+                        <td>{{ $order->shipping_date }}</td>
+                        @endrole
                     </tr>
                 </tbody>
             </table>
