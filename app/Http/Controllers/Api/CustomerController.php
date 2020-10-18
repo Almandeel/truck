@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Order;
+use App\Entery;
+use App\Account;
+use App\Pricing;
 use App\OrderItem;
 use App\OrderTender;
 use Illuminate\Http\Request;
@@ -98,6 +101,18 @@ class CustomerController extends Controller
 
     public function updateOrder(Request $request) {
         $order = Order::find($request->order_id);
+        $pricing = Pricing::first();
+
+        $net = ($order->tenders->where('company_id', $request->company_id)->first()->price * $pricing->amount) / 100;
+
+        $entries = Entery::create([
+            'amount'    => $net,
+            'from_id'   => $order->company->account_id,
+            'to_id'     => Account::ACCOUNT_SAFE,
+            'details'   => 'عمولة من الطلب رقم ' . $order->id,
+            'type'      => Entery::TYPE_INCOME,
+        ]);
+
         $order->update([
             'status'        => Order::ORDER_IN_SHIPPING,
             'company_id'    => $request->company_id,

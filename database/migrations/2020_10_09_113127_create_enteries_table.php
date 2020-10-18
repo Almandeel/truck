@@ -20,7 +20,7 @@ class CreateEnteriesTable extends Migration
             $table->tinyInteger('type')->default('1');
             $table->unsignedBigInteger('from_id');
             $table->unsignedBigInteger('to_id');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->index(["user_id"], 'fk_entries_user_id');
             
             $table->index(["from_id"], 'fk_entries_from_idx');

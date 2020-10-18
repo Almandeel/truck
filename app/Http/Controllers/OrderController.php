@@ -235,7 +235,6 @@ class OrderController extends Controller
                 'to_id'     => Account::ACCOUNT_SAFE,
                 'details'   => 'عمولة من الطلب رقم ' . $order->id,
                 'type'      => Entery::TYPE_INCOME,
-                'user_id'   => auth()->user()->id
             ]);
 
             $recipients = $order->company->user->pluck('fcm_token')->toArray();
